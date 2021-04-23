@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Dosen\DosenController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,7 @@ Route::post('/login-admin',[LoginController::class,'PostAdmin'])->name('postAuth
 
 Route::prefix('admin')->middleware('admin')
         ->group(function(){
-
+            Route::resource('semester', SemesterController::class);
             Route::get('/',[DashboardController::class,'index'])->name('dashboard-admin');
         });
 
