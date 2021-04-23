@@ -11,6 +11,8 @@ class Mahasiswa extends Model
     use HasFactory,SoftDeletes;
     protected $table = "mahasiswa";
     protected $fillable = [
-        'name', 'email', 'phone','password'
+        'name', 'email', 'phone','nim','password','fk_semester_id','fk_jurusan_id'
     ];
+
+    protected $hidden = ['password'];
 }
