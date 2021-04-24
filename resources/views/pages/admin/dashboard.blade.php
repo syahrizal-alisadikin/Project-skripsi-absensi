@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <h1 class="mt-4">Dashboard  {{ Auth::guard('admin')->user()->name }}</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Admin</li>
             </ol>
             <div class="row">
                 <div class="col-xl-3 col-md-6">
@@ -45,63 +45,43 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-area mr-1"></i>
-                            Area Chart Example
-                        </div>
-                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-bar mr-1"></i>
-                            Bar Chart Example
-                        </div>
-                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="card mb-4">
                 <div class="card-header">
-                    <i class="fas fa-table mr-1"></i>
-                    DataTable Example
+                    <a href="{{ route('admin.create') }}" class="btn btn-success"  style="float: right"><i class="fas fa-plus"></i> Admin</a>
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
+                                    <th>No</th>
                                     <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </tfoot>
+                           
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
+                                @forelse ($admin as $item)
+                                <tr class="text-center">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.edit',$item->id) }}"  class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="#" class="btn btn-danger" onClick="Delete(this.id)"  id="{{ $item->id }}"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                   
                                 </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center">Belum ada Jurusan</td>
+                                    </tr>
+                                @endforelse
                                 
                             </tbody>
                         </table>
@@ -110,4 +90,65 @@
             </div>
         </div>
     </main>
+
+   
 @endsection
+@push('addon-script')
+    <script>
+        function Delete(id)
+        {
+            var id = id;
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            Swal.fire({
+                title: "APAKAH KAMU YAKIN ?",
+                text: "INGIN MENGHAPUS DATA INI!",
+                showCancelButton: true,
+                confirmButtonText: `Ya`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    //ajax delete
+                    jQuery.ajax({
+                        url: "{{ route("admin.index") }}/"+id,
+                        data:   {
+                            "id": id,
+                            "_token": token
+                        },
+                        type: 'DELETE',
+                        success: function (response) {
+                            if (response.status == "success") {
+                                Swal.fire({
+                                    title: 'BERHASIL!',
+                                    text: 'DATA BERHASIL DIHAPUS!',
+                                    icon: 'success',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }else{
+                                Swal.fire({
+                                    title: 'GAGAL!',
+                                    text: 'DATA GAGAL DIHAPUS!',
+                                    icon: 'error',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                    return true;
+                }
+            })
+        }
+    </script>
+@endpush
