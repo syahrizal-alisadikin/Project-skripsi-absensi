@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\JurusanController;
+use App\Http\Controllers\Admin\MatkulController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Dosen\DosenController;
@@ -27,8 +29,10 @@ Route::post('/login-admin',[LoginController::class,'PostAdmin'])->name('postAuth
 
 Route::prefix('admin')->middleware('admin')
         ->group(function(){
-            Route::resource('semester', SemesterController::class);
             Route::get('/',[DashboardController::class,'index'])->name('dashboard-admin');
+            Route::resource('semester', SemesterController::class);
+            Route::resource('jurusan', JurusanController::class);
+            Route::resource('matkul', MatkulController::class);
         });
 
 Route::prefix('dosen')->middleware('dosen')

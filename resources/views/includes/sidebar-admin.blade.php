@@ -3,7 +3,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link {{ (request()->is('admin')) ? 'active' : '' }}" href="index.html">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
@@ -51,15 +51,15 @@
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="{{ route('semester.index') }}">
+                <a class="nav-link {{ (request()->is('admin/semester*')) ? 'active' : '' }}" href="{{ route('semester.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     Semester
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link {{ (request()->is('admin/jurusan*')) ? 'active' : '' }}" href="{{ route('jurusan.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                     Jurusan
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link {{ (request()->is('admin/matkul*')) ? 'active' : '' }}" href="{{ route('matkul.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                     Matakuliah
                 </a>
