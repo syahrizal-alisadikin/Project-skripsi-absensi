@@ -42,10 +42,17 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'jwt',
+            'provider' => 'mahasiswa',
             'hash' => false,
         ],
+
+        // 'mahasiswa' => [
+        //     'driver' => 'jwt',
+        //     'provider' => 'mahasiswa',
+        //     'hash' => false,
+
+        // ],
 
         //Edit Login
         'admin' => [
@@ -73,10 +80,7 @@ return [
             'provider' => 'mahasiswa',
         ],
 
-        'mahasiswa-api' => [
-            'driver' => 'token',
-            'provider' => 'mahasiswa',
-        ],
+       
     ],
 
     /*

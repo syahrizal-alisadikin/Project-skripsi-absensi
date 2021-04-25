@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 class LoginController extends Controller
 {
     public function AuthDosen()
@@ -65,6 +67,41 @@ class LoginController extends Controller
                 Auth::guard('dosen')->logout();
                 return redirect('/');
             }
+    }
+
+     public function PostMahasiswa(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $credentials = $request->only('email', 'password');
+
+        if(!$token = Auth::guard('api')->attempt($credentials)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email or Password is incorrect'
+            ], 401);
+        }
+       
+        return response()->json([
+            'success' => true,
+            'mahasiswa'  => auth()->guard('api')->user(),  
+            'token'   => $token   
+        ], 201);
+    }
+
+    public function getMahasiswa()
+    {
+        return response()->json([
+            'success' => true,
+            'mahasiswa'    => auth()->guard('api')->user()
+        ], 200);
     }
 
      
