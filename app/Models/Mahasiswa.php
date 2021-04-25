@@ -15,4 +15,14 @@ class Mahasiswa extends Model
     ];
 
     protected $hidden = ['password'];
+
+    public function semester()
+    {
+        return $this->hasOne(Semester::class,'id','fk_semester_id');
+    }
+
+    public function jurusan()
+    {
+        return $this->hasOne(Jurusan::class,'id','fk_jurusan_id');
+    }
 }

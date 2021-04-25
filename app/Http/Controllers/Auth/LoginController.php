@@ -30,7 +30,7 @@ class LoginController extends Controller
         ];
          // Passwordnya pake bcrypt
         if (Auth::guard('dosen')->attempt($login)) {
-            return redirect()->route('admin.index');
+            return redirect()->route('dosen.index');
         } else {
             return redirect()->route('auth-dosen')->with('error', 'Gagal Login !! Silahkan Periksa Email / Password');
         }
@@ -50,7 +50,7 @@ class LoginController extends Controller
 
          // Passwordnya pake bcrypt
         if (Auth::guard('admin')->attempt($login)) {
-            return redirect()->route('dashboard-admin');
+            return redirect()->route('admin.index');
         } else {
             return redirect()->route('auth-admin')->with('error', 'Gagal Login !! Silahkan Periksa Email / Password');
         }

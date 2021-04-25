@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Jurusan;
+use App\Models\Mahasiswa;
+use App\Models\Semester;
 use Illuminate\Http\Request;
-use App\Models\Admin;
-class AdminController extends Controller
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +18,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = Admin::all();
-        return view('pages.admin.dashboard',compact('admin'));
+        $mahasiswa = Mahasiswa::with('jurusan','semester')->get();
+        return view('pages.admin.mahasiswa.index',compact('mahasiswa'));
     }
 
     /**
@@ -25,8 +29,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.admin.create');
-        
+        $semester = Semester::all();
+        $jurusan = Jurusan::all();
+        return view('pages.admin.mahasiswa.create',compact('semester','jurusan'));
     }
 
     /**
@@ -40,9 +45,10 @@ class AdminController extends Controller
         $this->validate(
                 $request,
                 [
+                    'nim'    => 'required',
                     'name'    => 'required',
-                    'email'    => 'required|email|unique:admin,email',
-                    'phone'   => 'required|min:10|max:13|unique:admin,phone',
+                    'email'    => 'required|email|unique:mahasiswa,email',
+                    'phone'   => 'required|min:10|max:13|unique:mahasiswa,phone',
                     'password' => 'required|min:6|confirmed',
                     'password_confirmation' => 'required',
                 ],
@@ -50,14 +56,18 @@ class AdminController extends Controller
                     'password.confirmed' => 'Password Tidak sama!',
                 ]
             );
-        Admin::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password)
-        ]);
 
-        return redirect()->route('admin.index')->with('success','data berhasil ditambahkan !!');
+              Mahasiswa::create([
+                'nim' => $request->nim,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'fk_semester_id' => $request->fk_semester_id,
+                'fk_jurusan_id' => $request->fk_jurusan_id,
+                'password' => Hash::make($request->password)
+            ]);
+
+        return redirect()->route('mahasiswa.index')->with('success','data berhasil ditambahkan !!');
     }
 
     /**
@@ -79,8 +89,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $admin = Admin::findOrFail($id);
-        return view('pages.admin.admin.edit',compact('admin'));
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $semester = Semester::all();
+        $jurusan = Jurusan::all();
+        return view('pages.admin.mahasiswa.edit',compact('mahasiswa','semester','jurusan'));
     }
 
     /**
@@ -92,13 +104,21 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->password)
+         if($request->password)
         {
+            $mahasiswa = Mahasiswa::findOrFail($id);
+
             $this->validate(
                 $request,
                 [
+                    'nim'    => 'required',
                     'name'    => 'required',
-                    'email'    => 'required|email',
+                    'email'   => [
+                        'required',
+                        Rule::unique('mahasiswa')->ignore($mahasiswa->id, 'id'),
+
+
+                        ],
                     'phone'   => 'required|min:10|max:13',
                     'password' => 'required|min:6|confirmed',
                     'password_confirmation' => 'required',
@@ -108,32 +128,45 @@ class AdminController extends Controller
                 ]
             );
 
-            $admin = Admin::findOrFail($id);
-            $admin->update([
+           
+            $mahasiswa->update([
+                'nim' => $request->nim,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
+                'fk_semester_id' => $request->fk_semester_id,
+                'fk_jurusan_id' => $request->fk_jurusan_id,
                 'password' => Hash::make($request->password)
             ]);
-            return redirect()->route('admin.index')->with('success','data berhasil diupdate !!');
+            return redirect()->route('mahasiswa.index')->with('success','data berhasil diupdate !!');
 
         } else{
+            $mahasiswa = Mahasiswa::findOrFail($id);
+
             $this->validate(
                 $request,
                 [
+                    'nim'    => 'required',
                     'name'    => 'required',
-                    'email'    => 'required|email',
+                     'email'   => [
+                        'required',
+                        Rule::unique('mahasiswa')->ignore($mahasiswa->id, 'id'),
+
+
+                        ],
                     'phone'   => 'required|min:10|max:13',
                 ]
             );
 
-            $admin = Admin::findOrFail($id);
-            $admin->update([
+            $mahasiswa->update([
+                'nim' => $request->nim,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
+                'fk_semester_id' => $request->fk_semester_id,
+                'fk_jurusan_id' => $request->fk_jurusan_id,
             ]);
-            return redirect()->route('admin.index')->with('success','data berhasil diupdate !!');
+            return redirect()->route('mahasiswa.index')->with('success','data berhasil diupdate !!');
 
         }
     }
@@ -146,10 +179,10 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $admin = Admin::find($id);
-        $admin->delete();
+        $mahasiswa = Mahasiswa::find($id);
+        $mahasiswa->delete();
 
-        if ($admin) {
+        if ($mahasiswa) {
             return response()->json([
                 'status' => 'success'
             ]);

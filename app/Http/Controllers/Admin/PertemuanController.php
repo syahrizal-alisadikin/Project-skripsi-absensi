@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Matakuliah;
 use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 
-class MatkulController extends Controller
+class PertemuanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class MatkulController extends Controller
      */
     public function index()
     {
-        $matkul = Matakuliah::all();
-        return view('pages.admin.matakuliah.index',compact('matkul'));
+        //
     }
 
     /**
@@ -38,12 +36,14 @@ class MatkulController extends Controller
      */
     public function store(Request $request)
     {
-        Matakuliah::create([
+        // dd($request->all());
+        $pertemuan = Pertemuan::create([
             'name' => $request->name,
-            'sks' => $request->sks
-        ]);
+            'tanggal' => $request->tanggal,
+            'fk_matkul_id' => $request->fk_matkul_id,
 
-        return redirect()->route('matkul.index')->with('success','data berhasil ditambahkan !!');
+        ]);
+            return redirect()->route('matkul.show',$request->fk_matkul_id)->with('success','data berhasil ditambahkan!!');
     }
 
     /**
@@ -54,10 +54,7 @@ class MatkulController extends Controller
      */
     public function show($id)
     {
-       $matkul = Matakuliah::find($id);
-       $pertemuan = Pertemuan::where('fk_matkul_id',$id)->with('matakuliah')->get();
-
-       return view('pages.admin.matakuliah.pertemuan',compact('matkul','pertemuan'));
+        //
     }
 
     /**
@@ -80,21 +77,14 @@ class MatkulController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $matkul = Matakuliah::find($id);
-        $matkul->update([
+        $pertemuan = Pertemuan::find($id);
+        $pertemuan->update([
             'name' => $request->name,
-            'sks' => $request->sks
+            'tanggal' => $request->tanggal,
         ]);
+        return redirect()->route('matkul.show',$pertemuan->fk_matkul_id)->with('success','data berhasil diupdate!!');
 
-        if ($matkul) {
-            return response()->json([
-                'status' => 'success'
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'error'
-            ]);
-        }
+        
     }
 
     /**
@@ -105,10 +95,10 @@ class MatkulController extends Controller
      */
     public function destroy($id)
     {
-        $matkul = Matakuliah::find($id);
-        $matkul->delete();
+        $pertemuan = Pertemuan::find($id);
+        $pertemuan->delete();
 
-        if ($matkul) {
+        if ($pertemuan) {
             return response()->json([
                 'status' => 'success'
             ]);

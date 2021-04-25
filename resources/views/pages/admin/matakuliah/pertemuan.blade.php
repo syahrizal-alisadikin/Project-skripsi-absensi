@@ -6,12 +6,14 @@
             <h1 class="mt-4">Dashboard  {{ Auth::guard('admin')->user()->name }}</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Matakuliah</li>
+                 <li class="breadcrumb-item active" aria-current="page">{{ $matkul->name }}</li>
             </ol>
             
             
             <div class="card mb-4">
-                <div class="card-header">
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Matakuliah</a>
+                <div class="card-header d-flex">
+                    <h5>{{ $matkul->name }}</h5>
+                    <a href="#" class="btn btn-success ml-auto" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> Pertemuan</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -20,28 +22,29 @@
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Matakuliah</th>
-                                    <th>Sks</th>
+                                    <th>Name</th>
+                                    <th>Tanggal</th>
                                     <th>Aksi</th>
                                    
                                 </tr>
                             </thead>
                            
                             <tbody>
-                                @forelse ($matkul as $item)
+                                @forelse ($pertemuan as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->matakuliah->name }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->sks }}</td>
+                                    <td>{{ $item->tanggal }}</td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="ubahData('{{route('matkul.update',$item->id)}}','{{$item->name}}','{{$item->sks}}','{{$item->id}}')" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{ route('matkul.show',$item->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Pertemuan"><i class="far fa-eye"></i></a>
+                                        <a href="javascript:void(0)" onclick="ubahData('{{route('pertemuan.update',$item->id)}}','{{$item->name}}','{{$item->tanggal}}','{{$item->id}}')" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="#" class="btn btn-danger" onClick="Delete(this.id)"  id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="far fa-trash-alt"></i></a>
                                     </td>
                                    
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">Belum ada Matakuliah</td>
+                                        <td colspan="4" class="text-center">Belum ada Pertemuan</td>
                                     </tr>
                                 @endforelse
                                 
@@ -57,21 +60,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Matakuliah</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Pertemuan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('matkul.store') }}" method="POST">
+        <form action="{{ route('pertemuan.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="exampleInputEmail1">Nama Matakuliah</label>
+                <label for="exampleInputEmail1">Nama Pertemuan</label>
+                <input type="hidden" name="fk_matkul_id" value="{{ $matkul->id }}" class="form-control"  >
                 <input type="text" name="name" class="form-control" required placeholder="Masukan Nama Matakuliah" >
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">SKS</label>
-                <input type="number" name="sks" class="form-control" required placeholder="Masukan sks" >
+                <label for="date">Tanggal</label>
+                <input type="date" name="tanggal" id="tanggal" required class="form-control" required  >
                 
             </div>
             
@@ -88,7 +92,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Matakuliah</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Pertemuan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -106,8 +110,8 @@
                 <input type="text" class="form-control" id="editname" name="name" placeholder="Masukan Nama matakuliah" required>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">SKS</label>
-                <input type="number" class="form-control" id="editsks" name="sks" placeholder="Masukan Nama sks" required>
+                <label for="exampleInputEmail1">Tanggal</label>
+                <input type="date" class="form-control" id="editsks" name="tanggal" required>
                 
             </div>
             <div class="form-group">
@@ -125,9 +129,9 @@
 
 @push('addon-script')
     <script>
-        $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-        })
+        $('#tanggal').datepicker({
+            format: 'Y-m-d',
+        });
         function ubahData(url,name,sks,id) {
               $("#ubahModal").modal();
               $("#editname").val(name);
@@ -185,7 +189,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("matkul.index") }}/"+id,
+                        url: "{{ route("pertemuan.index") }}/"+id,
                         data:   {
                             "id": id,
                             "_token": token

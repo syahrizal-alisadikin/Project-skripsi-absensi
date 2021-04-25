@@ -5,7 +5,7 @@
         <div class="container-fluid">
             {{-- <h1 class="mt-4">Dashboard  {{ Auth::guard('admin')->user()->name }}</h1> --}}
             <ol class="breadcrumb my-4">
-                <li class="breadcrumb-item active">Create Admin</li>
+                <li class="breadcrumb-item active">Tambah Admin</li>
             </ol>
             
            <div class="row">

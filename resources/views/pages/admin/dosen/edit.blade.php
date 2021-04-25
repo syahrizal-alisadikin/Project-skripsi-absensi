@@ -5,19 +5,19 @@
         <div class="container-fluid">
             {{-- <h1 class="mt-4">Dashboard  {{ Auth::guard('admin')->user()->name }}</h1> --}}
             <ol class="breadcrumb my-4">
-                <li class="breadcrumb-item active">Edit Admin</li>
+                <li class="breadcrumb-item active">Edit Dosen</li>
             </ol>
             
            <div class="row">
                <div class="col-md-6">
                <div class="card">
                    <div class="card-body">
-                            <form action="{{ route('admin.update',$admin->id) }}" method="POST">
+                            <form action="{{ route('dosen.update',$dosen->id) }}" method="POST">
                                 @csrf
                                 @method("PUT")
                                     <div class="form-group">
                                         <label for="name">Name </label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ $admin->name ?? old('name') }}" name="name" required placeholder="Masukan name...">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ $dosen->name ?? old('name') }}" name="name" required placeholder="Masukan name...">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -27,7 +27,7 @@
                                 
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Email </label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $admin->email ?? old('email') }}" required placeholder="Masukan email...">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ $dosen->email ?? old('email') }}" required placeholder="Masukan email...">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="phone">Phone </label>
-                                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ $admin->phone ?? old('phone') }}" required placeholder="Masukan phone...">
+                                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ $dosen->phone ?? old('phone') }}" required placeholder="Masukan phone...">
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
