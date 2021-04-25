@@ -6,7 +6,9 @@
                 <a class="nav-link {{ (request()->is('admin/admin*')) ? 'active' : '' }}" href="{{ route('admin.index') }}">
                     Dashboard
                 </a>
-               
+                 <a class="nav-link {{ (request()->is('admin/kelas*')) ? 'active' : '' }}" href="{{ route('kelas.index') }}">
+                    Data Kelas
+                </a>
                 <a class="nav-link {{ (request()->is('admin/dosen*')) ? 'active' : '' }}" href="{{ route('dosen.index') }}">
                    Data Dosen
                 </a>

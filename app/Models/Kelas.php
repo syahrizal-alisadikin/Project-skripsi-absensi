@@ -13,4 +13,19 @@ class Kelas extends Model
     protected $table = "kelas";
 
     protected $fillable = ["name","fk_matkul_id","fk_dosen_id","fk_semester_id"];
+
+    public function matkul()
+    {
+        return $this->belongsTo(Matakuliah::class,'fk_matkul_id','id');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class,'fk_dosen_id','id');
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class,'fk_semester_id','id');
+    }
 }

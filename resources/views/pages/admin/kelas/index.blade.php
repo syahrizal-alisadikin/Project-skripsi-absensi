@@ -5,13 +5,13 @@
         <div class="container-fluid">
             <h1 class="mt-4">Dashboard  Admin</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Mahasiswa</li>
+                <li class="breadcrumb-item active">KELAS</li>
             </ol>
             
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <a href="{{ route('mahasiswa.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Mahasiswa</a>
+                    <a href="{{ route('kelas.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Kelas</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -20,9 +20,8 @@
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Jurusan</th>
+                                    <th>Matakuliah</th>
+                                    <th>Dosen</th>
                                     <th>Semester</th>
                                     <th>Aksi</th>
                                    
@@ -30,23 +29,23 @@
                             </thead>
                            
                             <tbody>
-                                @forelse ($mahasiswa as $item)
+                                @forelse ($kelas as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->jurusan->name }}</td>
+                                    <td>{{ $item->matkul->name }}</td>
+                                    <td>{{ $item->dosen->name }}</td>
                                     <td>{{ $item->semester->name }}</td>
+                                    
                                     <td>
-                                        <a href="{{ route('mahasiswa.edit',$item->id) }}"  class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{{ route('kelas.edit',$item->id) }}"  class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="#" class="btn btn-danger" onClick="Delete(this.id)"  id="{{ $item->id }}"><i class="far fa-trash-alt"></i></a>
                                     </td>
                                    
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Belum ada Mahasiswa</td>
+                                        <td colspan="7" class="text-center">Belum ada Kelas</td>
                                     </tr>
                                 @endforelse
                                 
@@ -79,7 +78,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("mahasiswa.index") }}/"+id,
+                        url: "{{ route("kelas.index") }}/"+id,
                         data:   {
                             "id": id,
                             "_token": token

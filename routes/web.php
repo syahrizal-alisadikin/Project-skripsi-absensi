@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MatkulController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\PertemuanController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::post('/login-admin',[LoginController::class,'PostAdmin'])->name('postAuth
 Route::prefix('admin')->middleware('admin')
         ->group(function(){
             Route::resource('admin', AdminController::class);
+            Route::resource('kelas', KelasController::class);
             Route::resource('dosen', DosenController::class);
             Route::resource('mahasiswa', MahasiswaController::class);
             Route::resource('pertemuan', PertemuanController::class);
