@@ -32,7 +32,7 @@ class LoginController extends Controller
         ];
          // Passwordnya pake bcrypt
         if (Auth::guard('dosen')->attempt($login)) {
-            return redirect()->route('dosen.index');
+            return redirect()->route('dashboard-dosen');
         } else {
             return redirect()->route('auth-dosen')->with('error', 'Gagal Login !! Silahkan Periksa Email / Password');
         }
