@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MatkulController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Dosen\DosController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\PertemuanController;
@@ -44,6 +45,6 @@ Route::prefix('admin')->middleware('admin')
 
 Route::prefix('dosen')->middleware('dosen')
         ->group(function(){
-            Route::get('/',[DosenController::class,'index'])->name('dashboard-dosen');
+            Route::get('/',[DosController::class,'index'])->name('dashboard-dosen');
 
         });
