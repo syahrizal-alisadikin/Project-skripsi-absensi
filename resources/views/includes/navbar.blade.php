@@ -4,7 +4,14 @@
     <!-- Navbar Search-->
     <!-- Navbar-->
     <ul class="navbar-nav ml-auto">
-       <h6 class="text-white mt-2"> {{ Auth::guard('admin')->user()->name }}</h6>
+       <h6 class="text-white mt-2">
+            @if(Auth::guard('dosen')->check())
+            {{ Auth::guard('dosen')->user()->name }}
+            
+            @else
+            {{ Auth::guard('admin')->user()->name }}
+            @endif
+        </h6>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
