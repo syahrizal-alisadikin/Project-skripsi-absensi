@@ -22,6 +22,7 @@
                                     <th>Name</th>
                                     <th>Matakuliah</th>
                                     <th>Dosen</th>
+                                    <th>Jurusan</th>
                                     <th>Semester</th>
                                     <th>Aksi</th>
                                    
@@ -35,6 +36,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->matkul->name }}</td>
                                     <td>{{ $item->dosen->name }}</td>
+                                    <td>{{ $item->jurusan->name }}</td>
                                     <td>{{ $item->semester->name }}</td>
                                     
                                     <td>

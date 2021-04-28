@@ -19,6 +19,7 @@ class CreateKelasTable extends Migration
             $table->integer('fk_matkul_id');
             $table->integer('fk_dosen_id');
             $table->integer('fk_semester_id');
+            $table->integer('fk_jurusan_id');
             $table->softDeletes();
             $table->timestamps();
         });

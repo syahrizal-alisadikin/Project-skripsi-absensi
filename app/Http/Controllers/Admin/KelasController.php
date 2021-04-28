@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Matakuliah;
 use App\Models\Semester;
@@ -48,6 +49,7 @@ class KelasController extends Controller
             "fk_matkul_id" => $request->fk_matkul_id,
             "fk_dosen_id" => $request->fk_dosen_id,
             "fk_semester_id" => $request->fk_semester_id,
+            "fk_jurusan_id" => $request->fk_jurusan_id,
         ]);
 
         return redirect()->route('kelas.index')->with('success','data berhasi ditambahkan !!');
@@ -75,8 +77,9 @@ class KelasController extends Controller
         $kelas = Kelas::with('semester','dosen','matkul')->findOrFail($id);
         $matkul = Matakuliah::all();
         $semester = Semester::all();
+        $jurusan = Jurusan::all();
         $dosen = Dosen::all();
-        return view('pages.admin.kelas.edit',compact('kelas','matkul','dosen','semester'));
+        return view('pages.admin.kelas.edit',compact('kelas','matkul','dosen','semester','jurusan'));
     }
 
     /**
@@ -94,6 +97,7 @@ class KelasController extends Controller
             "fk_matkul_id" => $request->fk_matkul_id,
             "fk_dosen_id" => $request->fk_dosen_id,
             "fk_semester_id" => $request->fk_semester_id,
+            "fk_jurusan_id" => $request->fk_jurusan_id,
         ]);
 
         return redirect()->route('kelas.index')->with('success','data berhasi diupdate !!');

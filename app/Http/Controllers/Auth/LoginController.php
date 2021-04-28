@@ -100,7 +100,8 @@ class LoginController extends Controller
     {
         return response()->json([
             'success' => true,
-            'mahasiswa'    => auth()->guard('api')->user()
+            "message" => "data mahasiswa " . auth()->guard('api')->user()->name,
+            'mahasiswa' => auth()->guard('api')->user()
         ], 200);
     }
 

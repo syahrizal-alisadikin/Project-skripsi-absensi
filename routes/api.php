@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MahasiswaController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('api')->get('/mahasiswa', [LoginController::class,'getMahasiswa']);
+Route::middleware('auth:api')->group(function(){
+    Route::get('/mahasiswa', [LoginController::class,'getMahasiswa']);
+    Route::get('/kelas', [MahasiswaController::class,'kelas']);
+});
 
 Route::post('/login',[LoginController::class,'PostMahasiswa']);
