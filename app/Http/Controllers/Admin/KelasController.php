@@ -35,6 +35,7 @@ class KelasController extends Controller
         $semester = Semester::all();
         $jurusan = Jurusan::all();
         $dosen = Dosen::all();
+        dd(count($matkul));
         if(count($matkul) == 0){
             return redirect()->back()->with('info', 'Matakuliah belum ada silahkan tambahkan terlebih dahulu !!');
         }elseif(count($semester)){
