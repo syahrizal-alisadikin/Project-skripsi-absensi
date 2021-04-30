@@ -35,14 +35,13 @@ class KelasController extends Controller
         $semester = Semester::all();
         $jurusan = Jurusan::all();
         $dosen = Dosen::all();
-        dd(count($matkul));
         if(count($matkul) == 0){
             return redirect()->back()->with('info', 'Matakuliah belum ada silahkan tambahkan terlebih dahulu !!');
-        }elseif(count($semester)){
+        }elseif(count($semester) == 0){
             return redirect()->back()->with('info', 'Semester belum ada silahkan tambahkan terlebih dahulu !!');
-        }elseif(count($jurusan)){
+        }elseif(count($jurusan) == 0){
             return redirect()->back()->with('info', 'Jurusan belum ada silahkan tambahkan terlebih dahulu !!');
-        }elseif(count($dosen)){
+        }elseif(count($dosen) == 0){
             return redirect()->back()->with('info', 'Dosen belum ada silahkan tambahkan terlebih dahulu !!');
         }
         
