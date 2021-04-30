@@ -32,8 +32,9 @@ class KelasController extends Controller
     {
         $matkul = Matakuliah::all();
         $semester = Semester::all();
+        $jurusan = Jurusan::all();
         $dosen = Dosen::all();
-        return view('pages.admin.kelas.create',compact('matkul','semester','dosen'));
+        return view('pages.admin.kelas.create',compact('matkul','semester','dosen','jurusan'));
     }
 
     /**

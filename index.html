@@ -2,25 +2,149 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Belajar Vuex</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        />
     </head>
-    <body>
-        Fizz Buzz
+
+    <body style="background: lightgray">
+        <div id="app">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <input
+                                type="text"
+                                class="form-control"
+                                v-model="todo"
+                                @keyup.enter="addTodo"
+                                placeholder="masukkan todo list dan enter"
+                            />
+                        </div>
+                        <ul class="list-group border-0 shadow">
+                            <li
+                                v-for="(todo, index) in todos"
+                                :key="index"
+                                class="list-group-item"
+                            >
+                                {{ todo.title }}
+                            </li>
+                        </ul>
+                        <div class="status mt-3">
+                            <h5>DONE: <strong>{{ done }}</strong></h5>
+                            <h5>PENDING: <strong>{{ pending }}</strong></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/vuex@4.0.0-beta.4/dist/vuex.global.js"></script>
+
+        <script>
+            //create store vuex
+            const store = Vuex.createStore({
+                //state
+                state: {
+                    todos: [
+                        {
+                            title: "Task 1",
+                            completed: false,
+                        },
+                        {
+                            title: "Task 2",
+                            completed: true,
+                        },
+                        {
+                            title: "Task 3",
+                            completed: false,
+                        },
+                    ],
+                },
+
+                //mutations
+                mutations: {
+                    //change todos
+                    ADD_TODO(state, data) {
+                        //push payload to todo
+                        state.todos.push({
+                            title: data,
+                            completed: false,
+                        });
+                    },
+                },
+
+                //actions
+                actions: {
+                    //action addTodo
+                    addTodo({ commit }, data) {
+                        //commit to mutations "ADD_TODO"
+                        commit("ADD_TODO", data);
+                    },
+                },
+
+                //getters
+                getters: {
+                    //getter get length todos status completed (true)
+                    doneTodos(state) {
+                        return state.todos.filter(function (item) {
+                            return item.completed == true;
+                        }).length;
+                    },
+
+                    //getter get length todos status pending (false)
+                    pendingTodos(state) {
+                        return state.todos.filter(function (item) {
+                            return item.completed == false;
+                        }).length;
+                    },
+                },
+            });
+
+            //vue Create App
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        todo: "",
+                    };
+                },
+
+                computed: {
+                    todos() {
+                        //get todos from state
+                        return this.$store.state.todos;
+                    },
+
+                    done() {
+                        //get todos completed from getters vuex
+                        return this.$store.getters.doneTodos;
+                    },
+
+                    pending() {
+                        //get todos pending from getters vuex
+                        return this.$store.getters.pendingTodos;
+                    },
+                },
+
+                methods: {
+                    addTodo() {
+                        //call action "addTodo" on vuex
+                        this.$store.dispatch("addTodo", this.todo);
+
+                        //empty todo state
+                        this.todo = "";
+                    },
+                },
+            });
+
+            //use vuex
+            app.use(store);
+            //mount to attribute ID app
+            app.mount("#app");
+        </script>
     </body>
-    <script>
-        const total = 20;
-        for (let i = 1; i < total; i++) {
-            if (i % 3 == 0 && i % 5 == 0) {
-                console.log("Fizz Buzz");
-            } else if (i % 3 == 0) {
-                console.log("Fizz");
-            } else if (i % 5 == 0) {
-                console.log("Buzz");
-            } else {
-                console.log(i);
-            }
-        }
-    </script>
 </html>
