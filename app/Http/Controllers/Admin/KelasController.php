@@ -30,10 +30,21 @@ class KelasController extends Controller
      */
     public function create()
     {
+
         $matkul = Matakuliah::all();
         $semester = Semester::all();
         $jurusan = Jurusan::all();
         $dosen = Dosen::all();
+        if(count($matkul) == 0){
+            return redirect()->back()->with('info', 'Matakuliah belum ada silahkan tambahkan terlebih dahulu !!');
+        }elseif(count($semester)){
+            return redirect()->back()->with('info', 'Semester belum ada silahkan tambahkan terlebih dahulu !!');
+        }elseif(count($jurusan)){
+            return redirect()->back()->with('info', 'Jurusan belum ada silahkan tambahkan terlebih dahulu !!');
+        }elseif(count($dosen)){
+            return redirect()->back()->with('info', 'Dosen belum ada silahkan tambahkan terlebih dahulu !!');
+        }
+        
         return view('pages.admin.kelas.create',compact('matkul','semester','dosen','jurusan'));
     }
 
