@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AbsenController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\Admin\MatkulController;
@@ -41,6 +42,9 @@ Route::prefix('admin')->middleware('admin')
             Route::resource('semester', SemesterController::class);
             Route::resource('jurusan', JurusanController::class);
             Route::resource('matkul', MatkulController::class);
+            Route::resource('absen', AbsenController::class);
+            Route::get('print-pdf',[AbsenController::class,'print_pdf'])->name('print_pdf');
+            Route::get('/absen/pertemuan/{id}',[AbsenController::class,'absenPertemuan'])->name('absen.pertemuan-show');
         });
 
 Route::prefix('dosen')->middleware('dosen')

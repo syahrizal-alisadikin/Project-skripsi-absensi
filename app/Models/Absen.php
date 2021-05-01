@@ -24,4 +24,14 @@ class Absen extends Model
     protected $table = "absen";
 
     protected $fillable = ["fk_pertemuan_id","fk_mahasiswa_id","status","waktu"];
+
+    public function pertemuan()
+    {
+        return $this->belongsTo(Pertemuan::class,'fk_pertemuan_id','id');
+    }
+
+    public function mahasiswa ()
+    {
+        return $this->belongsTo(Mahasiswa::class,'fk_mahasiswa_id','id');
+    }
 }

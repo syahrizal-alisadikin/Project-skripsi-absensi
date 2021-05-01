@@ -24,6 +24,9 @@
                 <a class="nav-link {{ (request()->is('admin/matkul*')) ? 'active' : '' }}" href="{{ route('matkul.index') }}">
                     Matakuliah
                 </a>
+                <a class="nav-link {{ (request()->is('admin/absen*')) ? 'active' : '' }}" href="{{ route('absen.index') }}">
+                    Laporan Absen
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer">

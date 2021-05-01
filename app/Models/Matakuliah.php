@@ -11,4 +11,9 @@ class Matakuliah extends Model
     use HasFactory,SoftDeletes;
     protected $table = "matakuliah";
     protected $fillable = ["name","sks"];
+
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class,'fk_matkul_id','id');
+    }
 }

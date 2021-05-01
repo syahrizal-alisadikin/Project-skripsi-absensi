@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Kelas;
+use App\Models\Mahasiswa;
+use App\Models\Dosen;
+use App\Models\Matakuliah;
 use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
@@ -16,7 +20,11 @@ class AdminController extends Controller
     public function index()
     {
         $admin = Admin::all();
-        return view('pages.admin.dashboard',compact('admin'));
+        $dosen = Dosen::count();
+        $mahasiswa = Mahasiswa::count();
+        $kelas      = Kelas::count();
+        $matkul     = Matakuliah::count();
+        return view('pages.admin.dashboard',compact('admin','dosen','mahasiswa','kelas','matkul'));
     }
 
     /**
