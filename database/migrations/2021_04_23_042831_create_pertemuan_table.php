@@ -17,7 +17,7 @@ class CreatePertemuanTable extends Migration
             $table->uuid('id');
             $table->string('name');
             $table->integer('fk_matkul_id');
-            $table->timestamp('expired_absen');
+            $table->timestamp('expired_absen')->nullable();
             $table->date('tanggal');
             $table->softDeletes();
             $table->timestamps();
