@@ -21,6 +21,10 @@ class LoginController extends Controller
 
     public function PostDosen(Request $request)
     {
+        if(intval($request->email) > 0){
+            return redirect()->back()->with('warning', 'Silahkan Download untuk absensi !!' );
+            
+        }
         $this->validate($request, [
             'email' => 'required',
             'password' => 'required'

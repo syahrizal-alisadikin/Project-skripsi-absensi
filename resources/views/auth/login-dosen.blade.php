@@ -18,13 +18,13 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login Dosen</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
                                         <form action="{{ route('postAuth-dosen') }}" method="POST">
                                             @csrf
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control py-4 @error('email') is-invalid @enderror" name="email" id="inputEmailAddress" type="email" placeholder="Enter email address" />
+                                                <input class="form-control py-4 @error('email') is-invalid @enderror" name="email" id="inputEmailAddress" type="text" placeholder="Enter email address" />
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -33,7 +33,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputPassword">Password</label>
-                                                <input class="form-control py-4 @error('password') is-invalid @enderror" name="password" id="inputPassword" type="password" placeholder="Enter password" />
+                                                <input class="form-control py-4 @error('password') is-invalid @enderror" name="password" id="inputPassword" required type="password" placeholder="Enter password" />
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -100,6 +100,16 @@
                     icon: "info",
                     title: "Info!",
                     text: "{{ session('info') }}",
+                    
+                });
+                @elseif(session()->has('warning'))
+                Swal.fire({
+                    icon: "warning",
+                    title: "Warning!",
+                    html:
+                        'Silahkan Download Untuk Absensi !! <br>' +
+                        '<b><a href="//sweetalert2.github.io">Dowload</a></b> '
+                        
                     
                 });
                 @endif

@@ -11,6 +11,7 @@ use App\Http\Controllers\Dosen\DosController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\PertemuanController;
+use App\Http\Controllers\Dosen\MatkulDosenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,5 +51,14 @@ Route::prefix('admin')->middleware('admin')
 Route::prefix('dosen')->middleware('dosen')
         ->group(function(){
             Route::get('/',[DosController::class,'index'])->name('dashboard-dosen');
-
+            Route::get('/account',[DosController::class,'account'])->name('account');
+            Route::get('/password',[DosController::class,'password'])->name('password');
+            Route::PUT('/dosen-update/{id}',[DosController::class,'updateDosen'])->name('updateDosen');
+            Route::PUT('/dosen-update-password/{id}',[DosController::class,'updatePasswordDosen'])->name('updatePasswordDosen');
+            
+            Route::get('/matakuliah' ,[MatkulDosenController::class,'index'])->name('matkulDosen.index');
+            Route::get('/matakuliah/{id}' ,[MatkulDosenController::class,'MatkulPertemuan'])->name('matakuliah.pertemuan');
+            Route::get('/generateAbsen/{id}' ,[MatkulDosenController::class,'generateAbsen'])->name('generateAbsen');
+            Route::get('/AddAbsen/{id}' ,[MatkulDosenController::class,'AddTimeAbsen'])->name('AddTimeAbsen');
+            Route::get('/generateView/{id}' ,[MatkulDosenController::class,'generateView'])->name('generateView');
         });

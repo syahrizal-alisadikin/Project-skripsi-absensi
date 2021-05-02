@@ -38,14 +38,21 @@ class MahasiswaController extends Controller
     {
         $pertemuan = Pertemuan::findOrFail($id);
         date_default_timezone_set("Asia/Bangkok");
-        $warning = strtotime(date('Y-m-d h:i:s'). "+ 30 minute");
-        $newWarning = date('Y-m-d h:i:s',$warning);
+        $warning = strtotime(date('Y-m-d H:i:s'). "+ 30 minute");
+        $newWarning = date('Y-m-d H:i:s',$warning);
         
         
         
 
         // dd($telat);
         if($pertemuan){
+            if($pertemuan->expired_absen == null){
+                return response()->json([
+                'success' => false,
+                'message' => "absen Belum di buat",
+                
+                ], 409);
+            }
              $time = strtotime($pertemuan->expired_absen);
              $telat = strtotime($pertemuan->expired_absen. "+ 30 minute");
              $date = strtotime(date('Y-m-d H:i:s'));

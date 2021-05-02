@@ -3,148 +3,119 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Belajar Vuex</title>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <!-- <link
+        rel="stylesheet"
+        href="frontend/libraries/bootstrap/css/bootstrap.css" 
+    /> -->
         <link
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+            integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+            crossorigin="anonymous"
         />
-    </head>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&
+    family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700;1,800&display=swap"
+            rel="stylesheet"
+        />
 
-    <body style="background: lightgray">
-        <div id="app">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <input
-                                type="text"
-                                class="form-control"
-                                v-model="todo"
-                                @keyup.enter="addTodo"
-                                placeholder="masukkan todo list dan enter"
-                            />
-                        </div>
-                        <ul class="list-group border-0 shadow">
-                            <li
-                                v-for="(todo, index) in todos"
-                                :key="index"
-                                class="list-group-item"
+        <link rel="stylesheet" href="frontend/styles/main.css" />
+    </head>
+    <body>
+        <!-- navbar -->
+        <div class="container">
+            <nav class="row navbar navbar-expand-lg navbar-light bg-white">
+                <a href="#" class="navbar-brand">
+                    <img
+                        src="frontend/images/logo_nomads.png"
+                        alt="Logo Nomads"
+                    />
+                </a>
+                <button
+                    class="navbar-toggler navbar-toggler-right"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navb"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navb">
+                    <ul class="navbar-nav ml-auto mr-3">
+                        <li class="nav-item mx-md-2">
+                            <a href="#" class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item mx-md-2">
+                            <a href="#" class="nav-link">Paket Travel</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a
+                                href="#"
+                                class="nav-link dropdown-toggle"
+                                id="navbardrop"
+                                data-toggle="dropdown"
                             >
-                                {{ todo.title }}
-                            </li>
-                        </ul>
-                        <div class="status mt-3">
-                            <h5>DONE: <strong>{{ done }}</strong></h5>
-                            <h5>PENDING: <strong>{{ pending }}</strong></h5>
-                        </div>
-                    </div>
+                                Services
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">Link</a>
+                                <a href="#" class="dropdown-item">Link</a>
+                                <a href="#" class="dropdown-item">Link</a>
+                            </div>
+                        </li>
+                        <li class="nav-item mx-md-2">
+                            <a href="#" class="nav-link">Testimonial</a>
+                        </li>
+                    </ul>
+
+                    <!-- Mobile Button -->
+                    <form class="form-inline d-sm-block d-md-none">
+                        <button class="btn btn-login my-2 my-sm-0">
+                            Masuk
+                        </button>
+                    </form>
+
+                    <!-- Dekstop Button -->
+                    <form class="form-inline my-2 my-lg-0 d-none d-md-block">
+                        <button
+                            class="btn btn-login btn-navbar-right my-2 my-sm-0 px-4"
+                        >
+                            Masuk
+                        </button>
+                    </form>
                 </div>
-            </div>
+            </nav>
         </div>
 
-        <script src="https://unpkg.com/vue@next"></script>
-        <script src="https://unpkg.com/vuex@4.0.0-beta.4/dist/vuex.global.js"></script>
+        <!-- Header -->
+        <header class="text-center">
+            <h1>
+                Explore The Beautiful The World
+                <br />
+                As Easy One Click
+            </h1>
+            <p class="mt-3">
+                You will see beautiful
+                <br />
+                moment you never see before
+            </p>
+            <a href="#" class="btn btn-get-started px-4 mt-4"> Get started </a>
+        </header>
 
-        <script>
-            //create store vuex
-            const store = Vuex.createStore({
-                //state
-                state: {
-                    todos: [
-                        {
-                            title: "Task 1",
-                            completed: false,
-                        },
-                        {
-                            title: "Task 2",
-                            completed: true,
-                        },
-                        {
-                            title: "Task 3",
-                            completed: false,
-                        },
-                    ],
-                },
-
-                //mutations
-                mutations: {
-                    //change todos
-                    ADD_TODO(state, data) {
-                        //push payload to todo
-                        state.todos.push({
-                            title: data,
-                            completed: false,
-                        });
-                    },
-                },
-
-                //actions
-                actions: {
-                    //action addTodo
-                    addTodo({ commit }, data) {
-                        //commit to mutations "ADD_TODO"
-                        commit("ADD_TODO", data);
-                    },
-                },
-
-                //getters
-                getters: {
-                    //getter get length todos status completed (true)
-                    doneTodos(state) {
-                        return state.todos.filter(function (item) {
-                            return item.completed == true;
-                        }).length;
-                    },
-
-                    //getter get length todos status pending (false)
-                    pendingTodos(state) {
-                        return state.todos.filter(function (item) {
-                            return item.completed == false;
-                        }).length;
-                    },
-                },
-            });
-
-            //vue Create App
-            const app = Vue.createApp({
-                data() {
-                    return {
-                        todo: "",
-                    };
-                },
-
-                computed: {
-                    todos() {
-                        //get todos from state
-                        return this.$store.state.todos;
-                    },
-
-                    done() {
-                        //get todos completed from getters vuex
-                        return this.$store.getters.doneTodos;
-                    },
-
-                    pending() {
-                        //get todos pending from getters vuex
-                        return this.$store.getters.pendingTodos;
-                    },
-                },
-
-                methods: {
-                    addTodo() {
-                        //call action "addTodo" on vuex
-                        this.$store.dispatch("addTodo", this.todo);
-
-                        //empty todo state
-                        this.todo = "";
-                    },
-                },
-            });
-
-            //use vuex
-            app.use(store);
-            //mount to attribute ID app
-            app.mount("#app");
-        </script>
+        <!-- <script src="frontend/libraries/jquery/jquery-3.6.0.min.js"></script>
+        <script src="frontend/libraries/bootstrap/js/bootstrap.js "></script> -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+            crossorigin="anonymous"
+        ></script>
+        <script src="frontend/libraries/retina/retina.min.js"></script>
     </body>
 </html>
