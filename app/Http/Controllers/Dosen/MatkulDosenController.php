@@ -33,12 +33,7 @@ class MatkulDosenController extends Controller
         date_default_timezone_set("Asia/Bangkok");
         $warning = strtotime(date('Y-m-d H:i:s'). "+ 60 minute");
         $newWarning = date('Y-m-d H:i:s',$warning);
-        $image = '<img src="https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl={{$pertemuan->id}}&choe=UTF-8"/>';
-        dd($image);
-        $image->store(
-            'assets/absensi',
-            'public'
-        );
+      
         $pertemuan->update([
             'expired_absen' => $newWarning
         ]);
