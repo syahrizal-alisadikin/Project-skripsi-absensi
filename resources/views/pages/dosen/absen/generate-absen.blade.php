@@ -27,6 +27,7 @@
                                     </a>
                                 <br>
                                     <a href="https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl={{$pertemuan->id}}&choe=UTF-8" download="code" id="download" class="btn btn-success">Download</a>
+                                    <a href="{{ route('matakuliah.pertemuan',$pertemuan->fk_matkul_id) }}" class="btn btn-primary">Kembali</a>
                                  </div>
                             </div>
                         </div>
