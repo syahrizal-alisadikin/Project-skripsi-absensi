@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dosen;
+use App\Models\Jadwal;
 use App\Models\Jurusan;
 use App\Models\Kelas;
+use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use App\Models\Semester;
 use Illuminate\Http\Request;
@@ -19,7 +21,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::with('matkul','dosen','semester')->get();
+        $kelas = Kelas::with('matkul','dosen')->get();
         return view("pages.admin.kelas.index",compact('kelas'));
     }
 
@@ -32,20 +34,15 @@ class KelasController extends Controller
     {
 
         $matkul = Matakuliah::all();
-        $semester = Semester::all();
-        $jurusan = Jurusan::all();
+       
         $dosen = Dosen::all();
         if(count($matkul) == 0){
             return redirect()->back()->with('info', 'Matakuliah belum ada silahkan tambahkan terlebih dahulu !!');
-        }elseif(count($semester) == 0){
-            return redirect()->back()->with('info', 'Semester belum ada silahkan tambahkan terlebih dahulu !!');
-        }elseif(count($jurusan) == 0){
-            return redirect()->back()->with('info', 'Jurusan belum ada silahkan tambahkan terlebih dahulu !!');
         }elseif(count($dosen) == 0){
             return redirect()->back()->with('info', 'Dosen belum ada silahkan tambahkan terlebih dahulu !!');
         }
         
-        return view('pages.admin.kelas.create',compact('matkul','semester','dosen','jurusan'));
+        return view('pages.admin.kelas.create',compact('matkul','dosen',));
     }
 
     /**
@@ -60,8 +57,6 @@ class KelasController extends Controller
             "name" => $request->name,
             "fk_matkul_id" => $request->fk_matkul_id,
             "fk_dosen_id" => $request->fk_dosen_id,
-            "fk_semester_id" => $request->fk_semester_id,
-            "fk_jurusan_id" => $request->fk_jurusan_id,
         ]);
 
         return redirect()->route('kelas.index')->with('success','data berhasi ditambahkan !!');
@@ -75,7 +70,13 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        //
+        $kelas = Kelas::find($id);
+        $jadwal = Jadwal::where('fk_kelas_id',$id)->whereHas('mahasiswa',function($query){
+            $query->orderBy('nim','asc');
+        })->with('mahasiswa.jurusan','mahasiswa.semester')->get();
+        // dd($jadwal);
+        $mahasiswa = Mahasiswa::orderBy('nim','asc')->get();
+        return view('pages.admin.kelas.show-mahasiswa',compact('kelas','jadwal','mahasiswa'));
     }
 
     /**
@@ -86,12 +87,11 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        $kelas = Kelas::with('semester','dosen','matkul')->findOrFail($id);
+        $kelas = Kelas::with('dosen','matkul')->findOrFail($id);
         $matkul = Matakuliah::all();
-        $semester = Semester::all();
-        $jurusan = Jurusan::all();
+      
         $dosen = Dosen::all();
-        return view('pages.admin.kelas.edit',compact('kelas','matkul','dosen','semester','jurusan'));
+        return view('pages.admin.kelas.edit',compact('kelas','matkul','dosen'));
     }
 
     /**
@@ -108,8 +108,7 @@ class KelasController extends Controller
             "name" => $request->name,
             "fk_matkul_id" => $request->fk_matkul_id,
             "fk_dosen_id" => $request->fk_dosen_id,
-            "fk_semester_id" => $request->fk_semester_id,
-            "fk_jurusan_id" => $request->fk_jurusan_id,
+            
         ]);
 
         return redirect()->route('kelas.index')->with('success','data berhasi diupdate !!');

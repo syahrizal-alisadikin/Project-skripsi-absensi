@@ -50,30 +50,7 @@
                                             @endforeach
                                            </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="phone">Jurusan </label>
-                                            <select name="fk_jurusan_id" id="fk_jurusan_id" class="form-control">
-                                                @foreach ($jurusan as $item)
-                                                @if ($item->id == $kelas->fk_jurusan_id)
-                                                <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                                                @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">Semester </label>
-                                            <select name="fk_semester_id" id="fk_semester_id" class="form-control">
-                                                @foreach ($semester as $item)
-                                                @if ($item->id == $kelas->fk_semester_id)
-                                                <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                                                @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                    </div>
+                                   
                                     
                                     
                                 

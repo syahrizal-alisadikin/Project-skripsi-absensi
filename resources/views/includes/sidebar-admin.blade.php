@@ -6,14 +6,18 @@
                 <a class="nav-link {{ (request()->is('admin/admin*')) ? 'active' : '' }}" href="{{ route('admin.index') }}">
                     Dashboard
                 </a>
-                 <a class="nav-link {{ (request()->is('admin/kelas*')) ? 'active' : '' }}" href="{{ route('kelas.index') }}">
-                    Data Kelas
-                </a>
+                
                 <a class="nav-link {{ (request()->is('admin/dosen*')) ? 'active' : '' }}" href="{{ route('dosen.index') }}">
                    Data Dosen
                 </a>
                 <a class="nav-link {{ (request()->is('admin/mahasiswa*')) ? 'active' : '' }}" href="{{ route('mahasiswa.index') }}">
                    Mahasiswa
+                </a>
+                 <a class="nav-link {{ (request()->is('admin/matkul*')) ? 'active' : '' }}" href="{{ route('matkul.index') }}">
+                    Matakuliah
+                </a>
+                 <a class="nav-link {{ (request()->is('admin/kelas*')) ? 'active' : '' }}" href="{{ route('kelas.index') }}">
+                    Data Kelas
                 </a>
                 <a class="nav-link {{ (request()->is('admin/semester*')) ? 'active' : '' }}" href="{{ route('semester.index') }}">
                     Semester
@@ -21,9 +25,7 @@
                 <a class="nav-link {{ (request()->is('admin/jurusan*')) ? 'active' : '' }}" href="{{ route('jurusan.index') }}">
                     Jurusan
                 </a>
-                <a class="nav-link {{ (request()->is('admin/matkul*')) ? 'active' : '' }}" href="{{ route('matkul.index') }}">
-                    Matakuliah
-                </a>
+               
                 <a class="nav-link {{ (request()->is('admin/absen*')) ? 'active' : '' }}" href="{{ route('absen.index') }}">
                     Laporan Absen
                 </a>

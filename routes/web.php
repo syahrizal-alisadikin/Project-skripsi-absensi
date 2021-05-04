@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MatkulController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Dosen\DosController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\MahasiswaController;
@@ -43,6 +44,7 @@ Route::prefix('admin')->middleware('admin')
             Route::resource('semester', SemesterController::class);
             Route::resource('jurusan', JurusanController::class);
             Route::resource('matkul', MatkulController::class);
+            Route::resource('jadwal', JadwalController::class);
             Route::resource('absen', AbsenController::class);
             Route::get('print-pdf',[AbsenController::class,'print_pdf'])->name('print_pdf');
             Route::get('/absen/pertemuan/{id}',[AbsenController::class,'absenPertemuan'])->name('absen.pertemuan-show');

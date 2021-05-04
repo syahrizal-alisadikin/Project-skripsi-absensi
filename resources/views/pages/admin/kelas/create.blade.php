@@ -41,22 +41,7 @@
                                             @endforeach
                                            </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="phone">Jurusan </label>
-                                            <select name="fk_jurusan_id" id="fk_jurusan_id" class="form-control">
-                                                @foreach ($jurusan as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">Semester </label>
-                                            <select name="fk_semester_id" id="fk_semester_id" class="form-control">
-                                                @foreach ($semester as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                    </div>
+                                   
                                     
                                     
                                 

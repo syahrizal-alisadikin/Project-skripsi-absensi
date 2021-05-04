@@ -12,7 +12,7 @@ class Kelas extends Model
 
     protected $table = "kelas";
 
-    protected $fillable = ["name","fk_matkul_id","fk_dosen_id","fk_semester_id","fk_jurusan_id"];
+    protected $fillable = ["name","fk_matkul_id","fk_dosen_id"];
 
     public function matkul()
     {
@@ -24,12 +24,5 @@ class Kelas extends Model
         return $this->belongsTo(Dosen::class,'fk_dosen_id','id');
     }
 
-    public function semester()
-    {
-        return $this->belongsTo(Semester::class,'fk_semester_id','id');
-    }
-    public function jurusan()
-    {
-        return $this->belongsTo(Jurusan::class,'fk_jurusan_id','id');
-    }
+    
 }
