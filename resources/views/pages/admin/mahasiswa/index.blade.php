@@ -19,10 +19,10 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
+                                    <th>Nim</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
                                     <th>Jurusan</th>
+                                    <th>Phone</th>
                                     <th>Semester</th>
                                     <th>Aksi</th>
                                    
@@ -33,10 +33,10 @@
                                 @forelse ($mahasiswa as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nim }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->phone }}</td>
                                     <td>{{ $item->jurusan->name }}</td>
+                                    <td>{{ $item->phone }}</td>
                                     <td>{{ $item->semester->name }}</td>
                                     <td>
                                         <a href="{{ route('mahasiswa.edit',$item->id) }}"  class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>

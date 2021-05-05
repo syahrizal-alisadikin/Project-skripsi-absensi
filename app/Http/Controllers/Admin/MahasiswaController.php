@@ -18,7 +18,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::with('jurusan','semester')->get();
+        $mahasiswa = Mahasiswa::with('jurusan','semester')->orderBy('nim','asc')->get();
         return view('pages.admin.mahasiswa.index',compact('mahasiswa'));
     }
 
