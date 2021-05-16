@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/matakuliah', [MahasiswaController::class,'kelas']);
     Route::get('/pertemuan/{id}', [MahasiswaController::class,'pertemuan']);
     Route::POST('/absensi/{id}', [MahasiswaController::class,'absensi']);
+    Route::GET('/absensi-mahasiswa/{id}',[MahasiswaController::class,'absensiMahasiswa']);
 });
 
 Route::post('/login',[LoginController::class,'PostMahasiswa']);
