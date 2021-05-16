@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/mahasiswa', [LoginController::class,'getMahasiswa']);
-    Route::get('/kelas', [MahasiswaController::class,'kelas']);
+    Route::get('/matakuliah', [MahasiswaController::class,'kelas']);
     Route::get('/pertemuan/{id}', [MahasiswaController::class,'pertemuan']);
-    Route::get('/absensi/{id}', [MahasiswaController::class,'absensi']);
+    Route::POST('/absensi/{id}', [MahasiswaController::class,'absensi']);
 });
 
 Route::post('/login',[LoginController::class,'PostMahasiswa']);
