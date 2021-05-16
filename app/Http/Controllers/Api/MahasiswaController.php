@@ -106,6 +106,83 @@ class MahasiswaController extends Controller
                 
                 ], 200);
     }
+    public function updateProfile(Request $request)
+    {
+        if($request->password)
+        {
+            $mahasiswa = auth()->guard('api')->user();
 
+            $this->validate(
+                $request,
+                [
+                    'nim'    => 'required',
+                    'name'    => 'required',
+                    'email'   => [
+                        'required',
+                        Rule::unique('mahasiswa')->ignore($mahasiswa->id, 'id'),
+
+
+                        ],
+                    'phone'   => 'required|min:10|max:13',
+                    'password' => 'required|min:6|confirmed',
+                    'password_confirmation' => 'required',
+                ],
+                [
+                    'password.confirmed' => 'Password Tidak sama!',
+                ]
+            );
+
+           
+            $mahasiswa->update([
+                'nim' => $request->nim,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password)
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => "berhasil update",
+                'data' => $mahasiswa
+                
+                ], 200);
+
+        } else{
+            $mahasiswa = auth()->guard('api')->user();
+
+
+            $this->validate(
+                $request,
+                [
+                    'nim'    => 'required',
+                    'name'    => 'required',
+                     'email'   => [
+                        'required',
+                        Rule::unique('mahasiswa')->ignore($mahasiswa->id, 'id'),
+
+
+                        ],
+                    'phone'   => 'required|min:10|max:13',
+                ]
+            );
+
+            $mahasiswa->update([
+                'nim' => $request->nim,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => "berhasil update ",
+                'data' => $mahasiswa
+                
+                ], 200);
+
+        }
+    }
     
 }
