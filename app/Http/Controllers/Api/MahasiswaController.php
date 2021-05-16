@@ -98,7 +98,7 @@ class MahasiswaController extends Controller
     public function absensiMahasiswa($id)
     {
         $mahasiswa = auth()->guard('api')->user()->id;
-        $absen = Absen::with('pertemuan','mahasiswa')->where('fk_mahasiswa_id',$mahasiswa)->where('fk_pertemuan_id',$id)->first();
+        $absen = Absen::with('pertemuan.matakuliah','mahasiswa')->where('fk_mahasiswa_id',$mahasiswa)->where('fk_pertemuan_id',$id)->first();
          return response()->json([
                 'success' => true,
                 'message' => "list absen success",
