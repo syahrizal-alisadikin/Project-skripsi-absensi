@@ -8,6 +8,8 @@ use App\Models\Jadwal;
 use App\Models\Kelas;
 use App\Models\Pertemuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use DateTime;
 class MahasiswaController extends Controller
 {
