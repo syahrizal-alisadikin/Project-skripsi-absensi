@@ -93,11 +93,7 @@ class LoginController extends Controller
             ], 401);
         }
        
-        return response()->json([
-            'success' => true,
-            'mahasiswa'  => auth()->guard('api')->user(),  
-            'token'   => $token   
-        ], 201);
+         return $this->respondWithToken($token);
     }
 
     public function getMahasiswa()
