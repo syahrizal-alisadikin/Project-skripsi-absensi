@@ -107,7 +107,7 @@ class LoginController extends Controller
 
     public function refreshToken()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth()->guard('api')->refresh());
     }
 
     protected function respondWithToken($token)
@@ -115,7 +115,7 @@ class LoginController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
         ]);
     }
      
