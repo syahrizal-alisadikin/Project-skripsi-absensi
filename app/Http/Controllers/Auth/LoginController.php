@@ -113,6 +113,7 @@ class LoginController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
+            'mahasiswa' => auth()->guard('api')->user(),
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
