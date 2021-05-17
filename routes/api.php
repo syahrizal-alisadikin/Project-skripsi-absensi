@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function(){
     Route::POST('/absensi/{id}', [MahasiswaController::class,'absensi']);
     Route::GET('/absensi-mahasiswa/{id}',[MahasiswaController::class,'absensiMahasiswa']);
     Route::PUT('/update-profile',[MahasiswaController::class,'updateProfile']);
+    Route::post('/refresh-token', [LoginController::class,'refreshToken']);
 });
 
 Route::post('/login',[LoginController::class,'PostMahasiswa']);

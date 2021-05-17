@@ -109,5 +109,18 @@ class LoginController extends Controller
         ], 200);
     }
 
+    public function refreshToken()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
      
 }

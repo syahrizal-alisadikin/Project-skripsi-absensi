@@ -110,10 +110,12 @@ class MahasiswaController extends Controller
     }
     public function updateProfile(Request $request)
     {
+        
         if($request->password)
         {
             $mahasiswa = auth()->guard('api')->user();
 
+            
             $this->validate(
                 $request,
                 [
