@@ -119,5 +119,12 @@ class LoginController extends Controller
             'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
         ]);
     }
+
+    public function LogoutMahasiswa()
+    {   
+        Auth::guard('api')->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+           
+    }
      
 }

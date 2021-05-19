@@ -27,3 +27,4 @@ Route::middleware('auth:api')->group(function(){
 });
 
 Route::post('/login',[LoginController::class,'PostMahasiswa']);
+Route::post('/logout',[LoginController::class,'LogoutMahasiswa']);
