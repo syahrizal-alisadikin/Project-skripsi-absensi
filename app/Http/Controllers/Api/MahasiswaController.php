@@ -61,6 +61,15 @@ class MahasiswaController extends Controller
              $date = strtotime(date('Y-m-d H:i:s'));
             if($date <= $time){
                 $siswa = auth()->guard('api')->user();
+                $getAbsen = Absen::where("fk_pertemuan_id",$id)->where('fk_mahasiswa_id',$siswa->id)->count();
+                if($getAbsen > 1){
+                     return response()->json([
+                'success' => false,
+                'message' => "Anda sudah absen !!",
+                
+                
+                ], 419);
+                }
                 $absen = Absen::create([
                     "fk_pertemuan_id" => $id,
                     "fk_mahasiswa_id" => $siswa->id,
@@ -75,6 +84,15 @@ class MahasiswaController extends Controller
                 ], 200);
             } elseif($date >= $time && $date <= $telat ){
                   $siswa = auth()->guard('api')->user();
+                  $getAbsen = Absen::where("fk_pertemuan_id",$id)->where('fk_mahasiswa_id',$siswa->id)->count();
+                if($getAbsen > 1){
+                     return response()->json([
+                'success' => false,
+                'message' => "Anda sudah absen !!",
+                
+                
+                ], 419);
+                }
                 $absen = Absen::create([
                     "fk_pertemuan_id" => $id,
                     "fk_mahasiswa_id" => $siswa->id,
@@ -100,7 +118,9 @@ class MahasiswaController extends Controller
     public function absensiMahasiswa($id)
     {
         $mahasiswa = auth()->guard('api')->user()->id;
-        $absen = Absen::with('pertemuan.matakuliah','mahasiswa')->where('fk_mahasiswa_id',$mahasiswa)->where('fk_pertemuan_id',$id)->first();
+        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->pluck('id');
+        
+        $absen = Absen::with('pertemuan.matakuliah','mahasiswa')->where('fk_mahasiswa_id',$mahasiswa)->whereIn('fk_pertemuan_id',$pertemuan)->get();
          return response()->json([
                 'success' => true,
                 'message' => "list absen success",
