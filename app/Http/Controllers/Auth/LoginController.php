@@ -116,7 +116,7 @@ class LoginController extends Controller
             'mahasiswa' => auth()->guard('api')->user(),
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->guard('api')->factory()->getTTL() * 20160
+            'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
         ]);
     }
 
