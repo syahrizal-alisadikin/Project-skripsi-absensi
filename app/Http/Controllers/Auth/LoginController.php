@@ -114,9 +114,7 @@ class LoginController extends Controller
     {
         
        try{
-           if (! $user = JWTAuth::parseToken()->authenticate()) {
-                        return response()->json(['user_not_found'], 404);
-                }
+         
         return response()->json([
             'mahasiswa' => auth()->guard('api')->user(),
             'access_token' => $token,
