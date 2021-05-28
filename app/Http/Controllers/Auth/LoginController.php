@@ -108,6 +108,7 @@ class LoginController extends Controller
     public function refreshToken()
     {
         $data = auth()->guard('api')->check();
+        dd($data);
         if(!$data){
              return response()->json([
             'success' => false,
