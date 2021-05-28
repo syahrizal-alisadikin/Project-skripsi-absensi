@@ -112,28 +112,26 @@ class LoginController extends Controller
 
     protected function respondWithToken($token)
     {
-        $data = auth()->guard('api')->check();
-
-        if(!$data){
-            return response()->json([
-            'success' => false,
-            'messagge' => 'Token Failed',
-            'data' => null
-            ],419);
-        }
-        // if(!$token){
-        //     return response()->json([
-        //     'success' => false,
-        //     'messagge' => 'Token Failed',
-        //     'data' => null
-        // ]);
-        // }
+        
+       try{
+           if (! $user = JWTAuth::parseToken()->authenticate()) {
+                        return response()->json(['user_not_found'], 404);
+                }
         return response()->json([
             'mahasiswa' => auth()->guard('api')->user(),
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
         ]);
+       } catch (Exception $error){
+            return response()->json([
+            'success' => false,
+            'message' => "token Failed",
+            'error' => $error,
+            
+        ]);
+       }
+       
     }
 
     public function LogoutMahasiswa()
