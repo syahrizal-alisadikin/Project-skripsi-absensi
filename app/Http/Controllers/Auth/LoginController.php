@@ -112,14 +112,22 @@ class LoginController extends Controller
 
     protected function respondWithToken($token)
     {
+        $data = auth()->guard('api')->check();
 
-        if(!$token){
+        if(!$data){
             return response()->json([
             'success' => false,
             'messagge' => 'Token Failed',
             'data' => null
-        ]);
+            ],419);
         }
+        // if(!$token){
+        //     return response()->json([
+        //     'success' => false,
+        //     'messagge' => 'Token Failed',
+        //     'data' => null
+        // ]);
+        // }
         return response()->json([
             'mahasiswa' => auth()->guard('api')->user(),
             'access_token' => $token,
