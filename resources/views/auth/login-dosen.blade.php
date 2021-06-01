@@ -108,7 +108,7 @@
                     title: "Warning!",
                     html:
                         'Silahkan Download Untuk Absensi !! <br>' +
-                        '<b><a href="//sweetalert2.github.io">Dowload</a></b> '
+                        '<b><a href="https://drive.google.com/file/d/1GR7uyMZ2VrR5Hjk8GiQm63QS5v8LSQgZ/view?usp=sharing">Dowload</a></b> '
                         
                     
                 });
