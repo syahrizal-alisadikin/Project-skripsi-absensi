@@ -14,7 +14,6 @@ class AbsenController extends Controller
 {
     public function index()
     {
-        // $absen = Absen::latest()->with('pertemuan.matakuliah.kelas.dosen')->groupBy()->get();
         $absen = DB::table('absen')
                 ->join('pertemuan','pertemuan.id','=' ,'absen.fk_pertemuan_id')
                 ->join('matakuliah','matakuliah.id','=','pertemuan.fk_matkul_id')
@@ -30,7 +29,8 @@ class AbsenController extends Controller
     public function show($id)
     {
         
-        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->get();
+        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->orderBy('name','asc')->get();
+        // dd($pertemuan);
         return view('pages.admin.absensi.pertemuan',compact('pertemuan'));
 
     }
@@ -42,13 +42,28 @@ class AbsenController extends Controller
                     $query->orderBy('nim',"asc");
                 })
                 ->with('mahasiswa')->get();
-        return view('pages.admin.absensi.pertemuan-absen',compact('absen'));
-        // dd($absen);
+                // dd($absen);
+        return view('pages.admin.absensi.pertemuan-absen',compact('absen','id'));
     }
 
-    public function print_pdf()
+    public function print_pdf(Request $req,$id)
     {
-        $pdf = PDF::loadview('pages.admin.absensi.print-pdf');
+
+        $absen = Absen::where('fk_pertemuan_id',$id)->with('pertemuan.matakuliah','mahasiswa')->first();
+        $absens = Absen::where('fk_pertemuan_id',$id)->whereDate('created_at',$req->tanggal_start)->with('pertemuan.matakuliah','mahasiswa')->get();
+        $start = $req->tanggal_start;
+        // dd($absens);
+        $pdf = PDF::loadview('pages.admin.absensi.print-pdf',compact('absen','absens','start'));
+        return $pdf->stream();
+    }
+     public function print_pdf_bulan(Request $req,$id)
+    {
+
+        $absen = Absen::where('fk_pertemuan_id',$id)->with('pertemuan.matakuliah','mahasiswa')->first();
+        $absens = Absen::where('fk_pertemuan_id',$id)->whereBetween('created_at',[$req->tanggal_start,$req->tanggal_end])->with('pertemuan.matakuliah','mahasiswa')->get();
+        // $start = $req->tanggal_start;
+        // dd($absens);
+        $pdf = PDF::loadview('pages.admin.absensi.print-pdf-bulan',compact('absen','absens'));
         return $pdf->stream();
     }
 }

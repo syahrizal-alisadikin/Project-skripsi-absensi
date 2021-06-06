@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\Jadwal;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Matakuliah;
@@ -12,10 +14,11 @@ class MatkulDosenController extends Controller
 {
      public function index()
     {
-        $matkul = Matakuliah::whereHas('kelas',function($query){
-            $query->where('id',Auth::guard('dosen')->user()->id);
-        })->with('kelas.jurusan')->get();
-        
+        // $matkul = Matakuliah::whereHas('kelas',function($query){
+        //     $query->where('id',Auth::guard('dosen')->user()->id);
+        // })->with('kelas')->get();
+        $matkul = Kelas::where('id',Auth::guard('dosen')->user()->id)->with('matkul','jadwal.mahasiswa.jurusan')->get();
+        // dd($matkul);
         return view('pages.dosen.matakuliah.index',compact('matkul'));
     }
 
@@ -25,6 +28,12 @@ class MatkulDosenController extends Controller
     
         return view('pages.dosen.matakuliah.pertemuan',compact('pertemuan'));
 
+    }
+
+    public function MatkulMahasiswa($id)
+    {
+        $jadwal = Jadwal::where('fk_kelas_id',$id)->with('mahasiswa.semester','mahasiswa.jurusan')->get();
+        return view('pages.dosen.matakuliah.mahasiswa',compact('jadwal'));
     }
 
     public function generateAbsen($id)

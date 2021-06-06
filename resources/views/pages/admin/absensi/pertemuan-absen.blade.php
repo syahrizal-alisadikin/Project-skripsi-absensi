@@ -67,7 +67,7 @@
                 <div class="data">
                   Print PDF 1 Bulan
                 </div><br>
-                <form method="GET" action="{{ route('print_pdf') }}">
+                <form method="GET" action="{{ route('print_pdf_bulan',$id) }}">
                   <div class="form-group">
                     <div class="ml-auto">
                       <input class="form-control" type="date" name="tanggal_start" value="{{ date('Y-m-d') }}">
@@ -89,7 +89,7 @@
                 <div class="data">
                   Print PDF Per Hari
                 </div><br>
-                <form method="GET" action="{{ route('print_pdf') }}">
+                <form method="GET" action="{{ route('print_pdf',$id) }}">
                   <div class="form-group">
                     <input class="form-control" type="date" name="tanggal_start" value="{{ date('Y-m-d') }}">
                   </div>

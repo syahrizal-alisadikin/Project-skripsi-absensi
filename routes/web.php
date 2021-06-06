@@ -46,7 +46,8 @@ Route::prefix('admin')->middleware('admin')
             Route::resource('matkul', MatkulController::class);
             Route::resource('jadwal', JadwalController::class);
             Route::resource('absen', AbsenController::class);
-            Route::get('print-pdf',[AbsenController::class,'print_pdf'])->name('print_pdf');
+            Route::get('print-pdf/{id}',[AbsenController::class,'print_pdf'])->name('print_pdf');
+            Route::get('print-pdf-bulan/{id}',[AbsenController::class,'print_pdf_bulan'])->name('print_pdf_bulan');
             Route::get('/absen/pertemuan/{id}',[AbsenController::class,'absenPertemuan'])->name('absen.pertemuan-show');
         });
 
@@ -60,6 +61,7 @@ Route::prefix('dosen')->middleware('dosen')
             
             Route::get('/matakuliah' ,[MatkulDosenController::class,'index'])->name('matkulDosen.index');
             Route::get('/matakuliah/{id}' ,[MatkulDosenController::class,'MatkulPertemuan'])->name('matakuliah.pertemuan');
+            Route::get('/matakuliah-mahasiswa/{id}' ,[MatkulDosenController::class,'MatkulMahasiswa'])->name('matakuliah.mahasiswa');
             Route::get('/generateAbsen/{id}' ,[MatkulDosenController::class,'generateAbsen'])->name('generateAbsen');
             Route::get('/AddAbsen/{id}' ,[MatkulDosenController::class,'AddTimeAbsen'])->name('AddTimeAbsen');
             Route::get('/generateView/{id}' ,[MatkulDosenController::class,'generateView'])->name('generateView');

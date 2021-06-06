@@ -6,12 +6,14 @@
             <h1 class="mt-4">Dashboard  Dosen</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Matakuliah</li>
+                 {{-- <li class="breadcrumb-item active" aria-current="page">{{ $pertemuan->matakuliah->first()->name }}</li> --}}
             </ol>
             
             
             <div class="card mb-4">
-                <div class="card-header">
-                    {{-- <a href="{{ route('kelas.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Kelas</a> --}}
+                <div class="card-header d-flex">
+                    {{-- <h5>{{ $pertemuan->matakuliah->first()->name }}</h5> --}}
+                    {{-- <a href="#" class="btn btn-success ml-auto" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> Pertemuan</a> --}}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -19,31 +21,29 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
-                                    <th>Matakuliah</th>
+                                    <th>Nim</th>
+                                    <th>Name</th>
+                                    <th>Semester</th>
                                     <th>Jurusan</th>
-                                    <th>Aksi</th>
+                                   
                                    
                                 </tr>
                             </thead>
                            
                             <tbody>
-                                @forelse ($matkul as $item)
+                                @forelse ($jadwal as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->matkul->name }}</td>
-                                    <td>{{ $item->jadwal->first()->mahasiswa->jurusan->name }}</td>
-                                    {{-- <td>{{ $item->sks }}</td> --}}
-                                    
-                                    
-                                    <td>
-                                        <a href="{{ route('matakuliah.pertemuan',$item->id) }}"  class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('matakuliah.mahasiswa',$item->id) }}"  class="btn btn-success"><i class="far fa-user"></i></a>
-                                    </td>
+                                    <td>{{ $item->mahasiswa->nim }}</td>
+                                    <td>{{ $item->mahasiswa->name }}</td>
+                                    <td>{{ $item->mahasiswa->semester->name }}</td>
+                                    <td>{{ $item->mahasiswa->jurusan->name }}</td>
+                                   
                                    
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Belum ada Kelas</td>
+                                        <td colspan="4" class="text-center">Belum ada Mahasiwa</td>
                                     </tr>
                                 @endforelse
                                 
@@ -58,4 +58,10 @@
 
 @endsection
 
-
+@push('addon-script')
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+@endpush

@@ -42,7 +42,7 @@
                                         @if ($item->expired_absen == null)
                                         <a href="{{ route('generateAbsen',$item->id) }}"  class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Generate Absen"><i class="fas fa-eye"></i></a>
                                         @else
-                                        <a href="{{ route('AddTimeAbsen',$item->id) }}"  class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Tambah Waktu Absen"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('AddTimeAbsen',$item->id) }}"  class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Tambah Waktu Absen"><i class="far fa-clock"></i></a>
                                         <a href="{{ route('generateView',$item->id) }}"  class="btn btn-success" data-toggle="tooltip" data-placement="top" title="lihat Absen"><i class="fas fa-eye"></i></a>
 
                                         @endif
