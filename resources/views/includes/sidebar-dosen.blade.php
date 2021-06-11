@@ -3,11 +3,14 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('dashboard-dosen') }}">
                     Dashboard
                 </a> 
                 <a class="nav-link" href="{{ route('matkulDosen.index') }}">
                     Manage Matakuliah
+                </a>
+                <a class="nav-link" href="{{ route('absensi.index') }}">
+                    Manage Absensi
                 </a>
                 <a class="nav-link" href="{{ route('account') }}">
                     Setting Account

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\Absen;
 use App\Models\Dosen;
+use App\Models\Kelas;
+use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -12,7 +15,11 @@ class DosController extends Controller
 {
    public function index()
     {
-        return view('pages.dosen.dashboard');
+        $kelas = Kelas::where('fk_dosen_id',Auth::guard('dosen')->user()->id)->pluck('fk_matkul_id');
+        $pertemuan = Pertemuan::whereIn('fk_matkul_id',$kelas)->pluck('id');
+        $absens = Absen::whereDate('waktu',date('Y-m-d'))->whereIn('fk_pertemuan_id',$pertemuan)->with('mahasiswa','pertemuan.matakuliah')->get();
+        // dd($absen);
+        return view('pages.dosen.dashboard',compact('absens'));
     }
 
     public function account()

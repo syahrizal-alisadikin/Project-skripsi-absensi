@@ -12,6 +12,7 @@ use App\Http\Controllers\Dosen\DosController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\PertemuanController;
+use App\Http\Controllers\Dosen\AbsensiController;
 use App\Http\Controllers\Dosen\MatkulDosenController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,11 +59,14 @@ Route::prefix('dosen')->middleware('dosen')
             Route::get('/password',[DosController::class,'password'])->name('password');
             Route::PUT('/dosen-update/{id}',[DosController::class,'updateDosen'])->name('updateDosen');
             Route::PUT('/dosen-update-password/{id}',[DosController::class,'updatePasswordDosen'])->name('updatePasswordDosen');
-            
+            Route::resource('absensi', AbsensiController::class);
+            Route::GET('/absensi/pertemuan/{id}',[AbsensiController::class,'pertemuanShow'])->name('absensi.pertemuan-show');
             Route::get('/matakuliah' ,[MatkulDosenController::class,'index'])->name('matkulDosen.index');
             Route::get('/matakuliah/{id}' ,[MatkulDosenController::class,'MatkulPertemuan'])->name('matakuliah.pertemuan');
             Route::get('/matakuliah-mahasiswa/{id}' ,[MatkulDosenController::class,'MatkulMahasiswa'])->name('matakuliah.mahasiswa');
             Route::get('/generateAbsen/{id}' ,[MatkulDosenController::class,'generateAbsen'])->name('generateAbsen');
             Route::get('/AddAbsen/{id}' ,[MatkulDosenController::class,'AddTimeAbsen'])->name('AddTimeAbsen');
             Route::get('/generateView/{id}' ,[MatkulDosenController::class,'generateView'])->name('generateView');
+            Route::get('print-pdf/{id}',[AbsensiController::class,'print_pdf'])->name('print_pdf_dosen');
+            Route::get('print-pdf-bulan/{id}',[AbsensiController::class,'print_pdf_bulan'])->name('print_pdf_bulan_dosen');
         });

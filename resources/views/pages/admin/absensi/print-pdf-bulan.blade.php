@@ -41,7 +41,7 @@
 				</tr>
                 @empty
                 <tr style="text-align: center">
-                    <td colspan="4">Tidak Ada Absen Mahasiswa</td>
+                    <td colspan="5">Tidak Ada Absen Mahasiswa</td>
                 </tr>
 				@endforelse
 		
