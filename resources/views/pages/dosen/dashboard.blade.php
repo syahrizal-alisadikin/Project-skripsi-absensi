@@ -77,8 +77,8 @@
                                     <td>{{ $absen->status }}</td>
                                 </tr>
                                 @empty
-                                    <tr colspan="5" class="text-center">
-                                        <td>Tidak ada absen Hari ini</td>
+                                    <tr >
+                                        <td colspan="5" class="text-center">Tidak ada absen Hari ini</td>
                                     </tr>
                                 @endforelse
                                 
