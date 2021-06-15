@@ -34,7 +34,7 @@
                                 @forelse ($pertemuan as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->matakuliah->first()->name }}</td>
+                                    <td>{{ $item->matakuliah->name }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->tanggal }}</td>
                                     <td>{{ $item->expired_absen ?? "-" }}</td>

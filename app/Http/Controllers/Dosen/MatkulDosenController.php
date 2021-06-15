@@ -25,7 +25,7 @@ class MatkulDosenController extends Controller
     public function MatkulPertemuan(Request $request,$id)
     {
        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->with('matakuliah')->get();
-        dd($pertemuan);
+        // dd($pertemuan);
         return view('pages.dosen.matakuliah.pertemuan',compact('pertemuan'));
 
     }
