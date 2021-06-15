@@ -17,7 +17,7 @@ class MatkulDosenController extends Controller
         // $matkul = Matakuliah::whereHas('kelas',function($query){
         //     $query->where('id',Auth::guard('dosen')->user()->id);
         // })->with('kelas')->get();
-        $matkul = Kelas::where('id',Auth::guard('dosen')->user()->id)->with('matkul','jadwal.mahasiswa.jurusan')->get();
+        $matkul = Kelas::where('fk_dosen_id',Auth::guard('dosen')->user()->id)->with('matkul','jadwal.mahasiswa.jurusan')->get();
         // dd($matkul);
         return view('pages.dosen.matakuliah.index',compact('matkul'));
     }
