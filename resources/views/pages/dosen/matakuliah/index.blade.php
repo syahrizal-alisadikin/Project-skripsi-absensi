@@ -36,7 +36,7 @@
                                     
                                     
                                     <td>
-                                        <a href="{{ route('matakuliah.pertemuan',$item->id) }}"  class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('matakuliah.pertemuan',$item->fk_matkul_id) }}"  class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                         <a href="{{ route('matakuliah.mahasiswa',$item->id) }}"  class="btn btn-success"><i class="far fa-user"></i></a>
                                     </td>
                                    
