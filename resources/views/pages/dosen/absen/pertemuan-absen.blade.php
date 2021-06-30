@@ -22,24 +22,45 @@
                                     <th>Nim</th>
                                     <th>Mahasiswa</th>
                                     <th>Status</th>
+                                    <th>Waktu</th>
                                    
                                 </tr>
                             </thead>
                            
                             <tbody>
-                                @forelse ($absen as $item)
+                                @forelse ($mahasiswa as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->mahasiswa->nim}}</td>
                                     <td>{{ $item->mahasiswa->name}}</td>
-                                    <td>@if ($item->status == "hadir")
+                                    <td>
+                                       @if (in_array($item->mahasiswa->id, $absen))
+                                        @php
+                                            $data = App\Models\Absen::where('fk_mahasiswa_id',$item->mahasiswa->id)->where('fk_pertemuan_id',$id)->first();
+                                        @endphp
+                                        @if ($data->status == "hadir")
                                         <span class="badge badge-success">Hadir</span>
                                         @else
                                         <span class="badge badge-warning">Terlambat</span>
 
                                         @endif
+
+                                      @else
+                                      <span class="badge badge-warning">Belum, Absen</span>
+                                      @endif
                                     </td>
-                                    
+                                    <td>
+                                        
+                                       
+                                      @if (in_array($item->mahasiswa->id, $absen))
+                                        
+                                        {{ $data->waktu }}
+
+                                      @else
+                                      -
+                                      @endif
+                           
+                                    </td>
                                     
                                    
                                 </tr>

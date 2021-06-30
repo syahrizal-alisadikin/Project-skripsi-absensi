@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AbsenController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AngkatanController;
 use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\Admin\MatkulController;
 use App\Http\Controllers\Admin\SemesterController;
@@ -43,10 +44,13 @@ Route::prefix('admin')->middleware('admin')
             Route::resource('mahasiswa', MahasiswaController::class);
             Route::resource('pertemuan', PertemuanController::class);
             Route::resource('semester', SemesterController::class);
+            Route::resource('angkatan', AngkatanController::class);
             Route::resource('jurusan', JurusanController::class);
             Route::resource('matkul', MatkulController::class);
             Route::resource('jadwal', JadwalController::class);
             Route::resource('absen', AbsenController::class);
+            Route::post('kelas-import',[KelasController::class,'ImportMahasiswa'])->name('kelas.import');
+            Route::post('mahaiswa-import',[MahasiswaController::class,'ImportMahasiswa'])->name('mahasiswa.import');
             Route::get('print-pdf/{id}',[AbsenController::class,'print_pdf'])->name('print_pdf');
             Route::get('print-pdf-bulan/{id}',[AbsenController::class,'print_pdf_bulan'])->name('print_pdf_bulan');
             Route::get('/absen/pertemuan/{id}',[AbsenController::class,'absenPertemuan'])->name('absen.pertemuan-show');

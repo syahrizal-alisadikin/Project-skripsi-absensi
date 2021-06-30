@@ -19,8 +19,11 @@
                  <a class="nav-link {{ (request()->is('admin/kelas*')) ? 'active' : '' }}" href="{{ route('kelas.index') }}">
                     Data Kelas
                 </a>
-                <a class="nav-link {{ (request()->is('admin/semester*')) ? 'active' : '' }}" href="{{ route('semester.index') }}">
+                {{-- <a class="nav-link {{ (request()->is('admin/semester*')) ? 'active' : '' }}" href="{{ route('semester.index') }}">
                     Semester
+                </a> --}}
+                <a class="nav-link {{ (request()->is('admin/angkatan*')) ? 'active' : '' }}" href="{{ route('angkatan.index') }}">
+                    Tahun Angkatan
                 </a>
                 <a class="nav-link {{ (request()->is('admin/jurusan*')) ? 'active' : '' }}" href="{{ route('jurusan.index') }}">
                     Jurusan

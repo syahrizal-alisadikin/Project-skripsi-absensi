@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\Pertemuan;
 use App\Models\Absen;
+use App\Models\Jadwal;
 use App\Models\Matakuliah;
 use PDF;
 use Illuminate\Support\Facades\Auth;
@@ -71,13 +72,17 @@ class AbsensiController extends Controller
 
     public function pertemuanShow($id)
     {
-       $absen = Absen::where('fk_pertemuan_id',$id)
+        
+        $pertemuan = Pertemuan::find($id);
+        $kelas = Kelas::where('fk_matkul_id',$pertemuan->fk_matkul_id)->first();
+        $mahasiswa = Jadwal::where('fk_kelas_id',$kelas->id)->with('mahasiswa')->get();
+        $absen = Absen::where('fk_pertemuan_id',$id)
                 ->whereHas('mahasiswa',function($query){
                     $query->orderBy('nim',"asc");
                 })
-                ->with('mahasiswa')->get();
+                ->with('mahasiswa')->pluck('fk_mahasiswa_id')->toArray();
                 // dd($absen);
-        return view('pages.dosen.absen.pertemuan-absen',compact('absen','id'));
+        return view('pages.dosen.absen.pertemuan-absen',compact('absen','id','mahasiswa'));
     }
 
     /**

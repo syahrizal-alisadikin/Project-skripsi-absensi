@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\MahasiswaImport;
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
 use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 class MahasiswaController extends Controller
 {
     /**
@@ -18,7 +21,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::with('jurusan','semester')->orderBy('nim','asc')->get();
+        $mahasiswa = Mahasiswa::with('jurusan','semester')->when(request()->filter, function($mahasiswa) {
+            $mahasiswa = $mahasiswa->where('angkatan', request()->filter );
+        })->orderBy('nim','asc')->get();
         return view('pages.admin.mahasiswa.index',compact('mahasiswa'));
     }
 
@@ -68,6 +73,37 @@ class MahasiswaController extends Controller
             ]);
 
         return redirect()->route('mahasiswa.index')->with('success','data berhasil ditambahkan !!');
+    }
+
+    public function ImportMahasiswa(Request $request)
+    {
+
+        $this->validate($request, [
+            'mahasiswa' =>  'required|mimes:csv,xls,xlsx'
+        ]);
+       
+        $file = $request->file('mahasiswa');
+        
+        
+        // membuat nama file unik
+        $nama_file = $file->hashName();
+
+        //temporary file
+        $path = $file->storeAs('public/excel/',$nama_file);
+
+        $import = Excel::import(new MahasiswaImport(),storage_path('app/public/excel/'. $nama_file));
+        
+        //remove from server
+        Storage::delete($path);
+
+        if($import) {
+            //redirect
+            return redirect()->route('mahasiswa.index')->with('success','data berhasil ditambahkan !!');
+
+        } else {
+            //redirect
+           return redirect()->route('mahasiswa.index')->with('error','Data Gagal Diimport!');
+        }
     }
 
     /**

@@ -5,15 +5,13 @@
         <div class="container-fluid">
             <h1 class="mt-4">Dashboard  Admin</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">KELAS {{ $kelas->name }}</li>
+                <li class="breadcrumb-item active">Tahun Angkatan</li>
             </ol>
             
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Mahasiswa</a>
-                    <a href="javascript:void(0)" class="btn btn-primary mr-3"  data-toggle="modal" data-target="#ImportModal" style="float: right"><i class="fas fa-plus"></i> Import Mahasiswa</a>
-                
+                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Semester</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -21,34 +19,26 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
-                                    <th>Nim</th>
                                     <th>Nama</th>
-                                    <th>Jurusan</th>
-                                    <th>Semester</th>
                                     <th>Aksi</th>
                                    
                                 </tr>
                             </thead>
                            
                             <tbody>
-                                @forelse ($jadwal as $item)
+                                @forelse ($angkatan as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->mahasiswa->nim }}</td>
-                                    <td>{{ $item->mahasiswa->name }}</td>
-                                    <td>{{ $item->mahasiswa->jurusan->name }}</td>
-                                    <td>{{ $item->mahasiswa->semester->name }}</td>
-                                    
-                                    
-                                    
+                                    <td>{{ $item->tahun }}</td>
                                     <td>
+                                        <a href="javascript:void(0)" onclick="ubahData('{{route('semester.update',$item->id)}}','{{$item->name}}','{{$item->id}}')" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="#" class="btn btn-danger" onClick="Delete(this.id)"  id="{{ $item->id }}"><i class="far fa-trash-alt"></i></a>
                                     </td>
                                    
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Belum ada Mahasiswa</td>
+                                        <td colspan="3" class="text-center">Belum ada Tahun Angkatan</td>
                                     </tr>
                                 @endforelse
                                 
@@ -60,81 +50,109 @@
         </div>
     </main>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Mahasiswa</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('jadwal.store') }}" method="POST">
-            @csrf
-           
-            <div class="form-group">
-                <label for="">Nama Mahasiswa</label> <br>
-                <input type="hidden" value="{{ $kelas->id }}" name="fk_kelas_id">
-                <select class="form-control" id="fk_mahasiswa_id" style="width:300px" name="fk_mahasiswa_id[]" multiple="multiple">
-                    @foreach ($mahasiswa as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
-                    
-                </select>
-            </div>
-            
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-            </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="ImportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Import Mahasiswa</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Semester</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{{ route('kelas.import') }}" enctype="multipart/form-data">
+        <form action="{{ route('semester.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="mahasiswa">Pilih Excel Mahasiswa</label>
-                <input type="file" class="form-control-file" name="mahasiswa" required id="mahasiswa">
+                <label for="exampleInputEmail1">Nama Semester</label>
+                <input type="text" name="name" class="form-control" required placeholder="Masukan Nama semester" >
             </div>
             
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
       
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="ubahModal" tabindex="-1" role="dialog" aria-labelledby="ubahModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Semester</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      <form action="" id="ubah-data" method="post">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="metode" id="metode">
+            <input type="hidden" name="id" id="idnya">
+            <div class="form-group">
+                <label for="nbame">Name</label>
+                <input type="hidden" class="form-control" id="idname" name="idname" required>
+                <input type="text" class="form-control" id="editname" name="name" placeholder="Masukan Nama Semester" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Edit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+
+      </div>
+     
+    </div>
+  </div>
+</div>
 @endsection
 
-
 @push('addon-script')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-    $('#fk_mahasiswa_id').select2({
-        placeholder: 'Select Mahasiswa'
-    });
-});
-</script>
     <script>
+
+        function ubahData(url,name,id) {
+              $("#ubahModal").modal();
+              $("#editname").val(name);
+              document.getElementById('ubah-data').action = url;
+               $("#idname").val(id);
+        }
+
+        
+
+        $(document).ready(function() {
+
+            $("#ubah-data").submit(function(e) {
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+                var form = $(this);
+                var url = form.attr('action');
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    if (data.status == "success") {
+                                 Swal.fire({
+                                    title: 'BERHASIL!',
+                                    text: 'DATA BERHASIL UPDATE!',
+                                    icon: 'success',
+                                    timer: 1000,
+                                    showConfirmButton: false,
+                                    showCancelButton: false,
+                                    buttons: false,
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            }
+                }
+                });
+            });
+
+
+        });
+
         function Delete(id)
         {
             var id = id;
@@ -150,7 +168,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("jadwal.index") }}/"+id,
+                        url: "{{ route("semester.index") }}/"+id,
                         data:   {
                             "id": id,
                             "_token": token

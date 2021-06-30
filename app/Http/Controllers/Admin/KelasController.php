@@ -45,6 +45,11 @@ class KelasController extends Controller
         return view('pages.admin.kelas.create',compact('matkul','dosen',));
     }
 
+    public function ImportMahasiswa(Request $request)
+    {
+        dd($request->all());
+    }
+
     /**
      * Store a newly created resource in storage.
      *

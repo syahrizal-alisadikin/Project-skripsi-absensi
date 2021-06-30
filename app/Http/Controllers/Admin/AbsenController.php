@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absen;
+use App\Models\Jadwal;
+use App\Models\Kelas;
 use App\Models\Pertemuan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -37,13 +39,17 @@ class AbsenController extends Controller
 
     public function absenPertemuan($id)
     {
+        $pertemuan = Pertemuan::find($id);
+        $kelas = Kelas::where('fk_matkul_id',$pertemuan->fk_matkul_id)->first();
+        $mahasiswa = Jadwal::where('fk_kelas_id',$kelas->id)->with('mahasiswa')->get();
+        
         $absen = Absen::where('fk_pertemuan_id',$id)
                 ->whereHas('mahasiswa',function($query){
                     $query->orderBy('nim',"asc");
                 })
-                ->with('mahasiswa')->get();
-                // dd($absen);
-        return view('pages.admin.absensi.pertemuan-absen',compact('absen','id'));
+                ->with('mahasiswa')->pluck('fk_mahasiswa_id')->toArray();
+        // dd($absen);
+        return view('pages.admin.absensi.pertemuan-absen',compact('absen','id','mahasiswa'));
     }
 
     public function print_pdf(Request $req,$id)

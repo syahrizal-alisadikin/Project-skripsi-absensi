@@ -11,7 +11,33 @@
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <a href="{{ route('mahasiswa.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Mahasiswa</a>
+                   <div class="row">
+                       <div class="col-md-6 ">
+                            <form action="{{ route('mahasiswa.index') }}" method="GET">
+                                @csrf
+                                <div class="d-flex">
+                                    <div class="form-group">
+                                    {{-- <label for="exampleFormControlSelect1">Angkatan</label> --}}
+                                    <select class="form-control" name="filter">
+                                    <option value="1">2019</option>
+                                    <option value="2">2020</option>
+                                    <option value="3">2021</option>
+                                    <option value="4">2022</option>
+                                    <option value="5">2021</option>
+                                    </select>
+                                </div>
+                                 <div class="form-group ml-3">
+                                   <Button type="submit" class="btn btn-warning">Filter</Button>
+                                </div>
+                                </div>
+                            </form>
+                       </div>
+                       <div class="col-md-6">
+                        <a href="{{ route('mahasiswa.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Mahasiswa</a>
+                        <a href="javascript:void(0)" class="btn btn-primary mr-3"  data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Import Mahasiswa</a>
+                       </div>
+                   </div>
+                   
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -58,7 +84,37 @@
         </div>
     </main>
 
+<!-- Button trigger modal -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import Mahasiswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('mahasiswa.import') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="mahasiswa">Pilih Excel Mahasiswa</label>
+                <input type="file" class="form-control-file" name="mahasiswa" required id="mahasiswa">
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 @endsection
 
 
