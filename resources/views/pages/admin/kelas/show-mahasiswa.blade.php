@@ -104,7 +104,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{{ route('kelas.import') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('kelas.import',$kelas->id) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="mahasiswa">Pilih Excel Mahasiswa</label>

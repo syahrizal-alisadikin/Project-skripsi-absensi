@@ -47,6 +47,7 @@
 
                                       @else
                                       <span class="badge badge-warning">Belum, Absen</span>
+                                      <a href="#" class="btn btn-sm btn-success">Absen</a>
                                       @endif
                                     </td>
                                     <td>
