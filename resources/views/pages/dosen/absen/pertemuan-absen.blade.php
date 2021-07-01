@@ -47,7 +47,7 @@
 
                                       @else
                                       <span class="badge badge-warning">Belum, Absen</span>
-                                      <a href="#" class="btn btn-sm btn-success">Absen</a>
+                                      <a href="{{ route('mahasiswaAbsen.dosen',$id) }}?fk_mahasiswa_id={{ $item->mahasiswa->id }}" class="btn btn-sm btn-success">Absen</a>
                                       @endif
                                     </td>
                                     <td>

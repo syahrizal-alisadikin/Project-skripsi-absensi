@@ -64,6 +64,7 @@ Route::prefix('dosen')->middleware('dosen')
             Route::PUT('/dosen-update/{id}',[DosController::class,'updateDosen'])->name('updateDosen');
             Route::PUT('/dosen-update-password/{id}',[DosController::class,'updatePasswordDosen'])->name('updatePasswordDosen');
             Route::resource('absensi', AbsensiController::class);
+            Route::GET('/mahasiswa-absen/dosen/{id}',[AbsensiController::class,'mahasiswaAbsen'])->name('mahasiswaAbsen.dosen');
             Route::GET('/absensi/pertemuan/{id}',[AbsensiController::class,'pertemuanShow'])->name('absensi.pertemuan-show');
             Route::get('/matakuliah' ,[MatkulDosenController::class,'index'])->name('matkulDosen.index');
             Route::get('/matakuliah/{id}' ,[MatkulDosenController::class,'MatkulPertemuan'])->name('matakuliah.pertemuan');

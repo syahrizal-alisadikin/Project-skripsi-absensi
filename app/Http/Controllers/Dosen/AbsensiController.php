@@ -59,6 +59,58 @@ class AbsensiController extends Controller
         return view('pages.dosen.absen.pertemuan',compact('pertemuan','matkul'));
     }
 
+    public function mahasiswaAbsen(Request $req,$id)
+    {
+        $pertemuan = Pertemuan::findOrFail($id);
+        date_default_timezone_set("Asia/Bangkok");
+        $warning = strtotime(date('Y-m-d H:i:s'). "+ 30 minute");
+        $newWarning = date('Y-m-d H:i:s',$warning);
+
+         // dd($telat);
+        if($pertemuan){
+            if($pertemuan->expired_absen == null){
+                return redirect()->route('absensi.pertemuan-show',$id)->with('info','absen belum di buat!!');
+            }
+             $time = strtotime($pertemuan->expired_absen);
+             $telat = strtotime($pertemuan->expired_absen. "+ 30 minute");
+             $date = strtotime(date('Y-m-d H:i:s'));
+            if($date <= $time){
+                $siswa = auth()->guard('api')->user();
+                $getAbsen = Absen::where("fk_pertemuan_id",$id)->where('fk_mahasiswa_id',$req->fk_mahasiswa_id)->count();
+                if($getAbsen > 1){
+                    return redirect()->route('absensi.pertemuan-show',$id)->with('info','anda sudah absen!!');
+
+                }
+                $absen = Absen::create([
+                    "fk_pertemuan_id" => $id,
+                    "fk_mahasiswa_id" => $req->fk_mahasiswa_id,
+                    "status" => "hadir",
+                    "waktu" => date('Y-m-d H:i:s')
+                ]);
+                return redirect()->route('absensi.pertemuan-show',$id)->with('success','absen Berhasil di buat!!');
+
+            } elseif($date >= $time && $date <= $telat ){
+                  $siswa = auth()->guard('api')->user();
+                  $getAbsen = Absen::where("fk_pertemuan_id",$id)->where('fk_mahasiswa_id',$req->fk_mahasiswa_id)->count();
+                if($getAbsen > 1){
+                    return redirect()->route('absensi.pertemuan-show',$id)->with('info','absen sudah absen!!');
+
+                }
+                $absen = Absen::create([
+                    "fk_pertemuan_id" => $id,
+                    "fk_mahasiswa_id" => $siswa->id,
+                    "status" => "telat",
+                    "waktu" => date('Y-m-d H:i:s')
+                ]);
+            return redirect()->route('absensi.pertemuan-show',$id)->with('success','absen Berhasil di buat!!');
+
+            } elseif($date >= $telat){
+                return redirect()->route('absensi.pertemuan-show',$id)->with('info','absen Expired!!');
+
+            }
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

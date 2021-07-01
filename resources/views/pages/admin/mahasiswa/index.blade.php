@@ -19,11 +19,10 @@
                                     <div class="form-group">
                                     {{-- <label for="exampleFormControlSelect1">Angkatan</label> --}}
                                     <select class="form-control" name="filter">
-                                    <option value="1">2019</option>
-                                    <option value="2">2020</option>
-                                    <option value="3">2021</option>
-                                    <option value="4">2022</option>
-                                    <option value="5">2021</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
                                     </select>
                                 </div>
                                  <div class="form-group ml-3">
@@ -49,7 +48,7 @@
                                     <th>Name</th>
                                     <th>Jurusan</th>
                                     <th>Phone</th>
-                                    <th>Semester</th>
+                                    <th>Angkatan</th>
                                     <th>Aksi</th>
                                    
                                 </tr>
@@ -63,7 +62,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->jurusan->name }}</td>
                                     <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->semester->name }}</td>
+                                    <td>{{ $item->angkatan }}</td>
                                     <td>
                                         <a href="{{ route('mahasiswa.edit',$item->id) }}"  class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="#" class="btn btn-danger" onClick="Delete(this.id)"  id="{{ $item->id }}"><i class="far fa-trash-alt"></i></a>
