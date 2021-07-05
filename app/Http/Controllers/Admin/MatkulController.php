@@ -42,7 +42,9 @@ class MatkulController extends Controller
     {
         Matakuliah::create([
             'name' => $request->name,
-            'sks' => $request->sks
+            'sks' => $request->sks,
+            'id_matkul' => $request->id_matkul,
+            'tahun' => $request->tahun,
         ]);
 
         return redirect()->route('matkul.index')->with('success','data berhasil ditambahkan !!');
@@ -115,7 +117,9 @@ class MatkulController extends Controller
         $matkul = Matakuliah::find($id);
         $matkul->update([
             'name' => $request->name,
-            'sks' => $request->sks
+            'sks' => $request->sks,
+            'id_matkul' => $request->id_matkul,
+            'tahun' => $request->tahun,
         ]);
 
         if ($matkul) {

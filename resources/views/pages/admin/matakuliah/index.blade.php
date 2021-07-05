@@ -38,7 +38,7 @@
                                     <td>{{ $item->sks }}</td>
                                     <td>{{ $item->tahun }}</td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="ubahData('{{route('matkul.update',$item->id)}}','{{$item->name}}','{{$item->sks}}','{{$item->id}}')" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="javascript:void(0)" onclick="ubahData('{{route('matkul.update',$item->id)}}','{{$item->name}}','{{$item->sks}}','{{$item->id_matkul}}','{{$item->id}}')" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{{ route('matkul.show',$item->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Pertemuan"><i class="far fa-eye"></i></a>
                                         <a href="#" class="btn btn-danger" onClick="Delete(this.id)"  id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="far fa-trash-alt"></i></a>
                                     </td>
@@ -79,6 +79,17 @@
                 <input type="number" name="sks" class="form-control" required placeholder="Masukan sks" >
                 
             </div>
+            <div class="form-group">
+                <label for="id_matkul">Kode Matkul</label>
+                <input type="text" name="id_matkul" class="form-control" required placeholder="Masukan Kode" >
+            </div>
+            <div class="form-group">
+                <label for="tahun">Tahun</label>
+                <select name="tahun" class="form-control">
+                    <option value="Genap">Genap</option>
+                    <option value="Ganjil">Ganjil</option>
+                </select>
+            </div>
             
             
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -114,6 +125,17 @@
                 <label for="exampleInputEmail1">SKS</label>
                 <input type="number" class="form-control" id="editsks" name="sks" placeholder="Masukan Nama sks" required>
                 
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Kode Matakuliah</label>
+                <input type="text" class="form-control" id="editkode" name="id_matkul" placeholder="Masukan Kode Matkul" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Tahun</label>
+                <select name="tahun" class="form-control" id="">
+                    <option value="Genap">Genap</option>
+                    <option value="Ganjil">Ganjil</option>
+                </select>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Edit</button>
@@ -162,10 +184,11 @@
         $(function () {
         $('[data-toggle="tooltip"]').tooltip()
         })
-        function ubahData(url,name,sks,id) {
+        function ubahData(url,name,sks,kode,id) {
               $("#ubahModal").modal();
               $("#editname").val(name);
               $("#editsks").val(sks);
+              $("#editkode").val(kode);
               document.getElementById('ubah-data').action = url;
                $("#idname").val(id);
         }
