@@ -10,7 +10,7 @@ class Matakuliah extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = "matakuliah";
-    protected $fillable = ["name","sks"];
+    protected $fillable = ["name","sks",'id_matkul','tahun'];
 
     public function kelas()
     {

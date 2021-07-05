@@ -16,6 +16,15 @@
                                 @csrf
                                 @method("PUT")
                                     <div class="form-group">
+                                        <label for="name">Nidn </label>
+                                        <input type="text" class="form-control @error('nidn') is-invalid @enderror" id="name" value="{{ $dosen->nidn ?? old('nidn') }}" name="nidn" required placeholder="Masukan Nidn...">
+                                        @error('nidn')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <label for="name">Name </label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ $dosen->name ?? old('name') }}" name="name" required placeholder="Masukan name...">
                                         @error('name')

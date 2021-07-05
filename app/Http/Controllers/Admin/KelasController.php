@@ -104,7 +104,7 @@ class KelasController extends Controller
     {
         $kelas = Kelas::find($id);
         $jadwal = Jadwal::where('fk_kelas_id',$id)->whereHas('mahasiswa',function($query){
-            $query->orderBy('nim','asc');
+            $query->orderBy('angkatan','asc');
         })->with('mahasiswa.jurusan','mahasiswa.semester')->get();
         // dd($jadwal);
         $mahasiswa = Mahasiswa::orderBy('nim','asc')->get();

@@ -12,6 +12,8 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <a href="{{ route('dosen.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Dosen</a>
+                    <a href="javascript:void(0)" class="btn btn-primary mr-2 "  data-toggle="modal" data-target="#importModal" style="float: right"><i class="fas fa-plus"></i> Import Dosen</a>
+                
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -19,6 +21,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
+                                    <th>Nidn</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
@@ -31,6 +34,7 @@
                                 @forelse ($dosen as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nidn ?? '-' }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone }}</td>
@@ -54,7 +58,34 @@
         </div>
     </main>
 
-
+<!-- Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import Dosen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('dosen.import') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="mahasiswa">Pilih Excel Dosen</label>
+                <input type="file" class="form-control-file" name="dosen" required id="dosen">
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 @endsection
 
 

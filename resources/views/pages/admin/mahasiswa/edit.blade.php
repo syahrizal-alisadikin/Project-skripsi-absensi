@@ -59,31 +59,23 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="phone">Semester </label>
-                                                <select name="fk_semester_id" id="fk_semester_id" class="form-control">
-                                                    @foreach ($semester as $item)
-                                                     @if ($mahasiswa->fk_semester_id == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                                                         @else 
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-
-                                                        @endif
-                                                    @endforeach
+                                                <label for="phone">Angkatan </label>
+                                                <select name="angkatan" id="angkatan" class="form-control">
+                                                        <option value="2019" {{ $mahasiswa->anggatan == '2019' ? 'selected' : '' }}>2019</option>
+                                                        <option value="2020" {{ $mahasiswa->anggatan == '2020' ? 'selected' : '' }}>2020</option>
+                                                        <option value="2021" {{ $mahasiswa->anggatan == '2021' ? 'selected' : '' }}>2021</option>
+                                                        <option value="2022" {{ $mahasiswa->anggatan == '2022' ? 'selected' : '' }}>2022</option>
+                                                    
                                                 </select>
                                                 
                                               
                                             </div>
                                              <div class="form-group">
                                                 <label for="phone">Jurusan </label>
-                                                <select name="fk_jurusan_id" id="fk_jurusan_id" class="form-control">
-                                                    @foreach ($jurusan as $item)
-                                                        @if ($mahasiswa->fk_jurusan_id == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                                                         @else 
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-
-                                                        @endif
-                                                    @endforeach
+                                                <select name="jurusan" id="jurusan" class="form-control">
+                                                        <option value="Teknik Informatika" {{ $mahasiswa->jurusan == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                                                        <option value="Sistem Informasi" {{ $mahasiswa->jurusan == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+                                                    
                                                 </select>
                                                 
                                               

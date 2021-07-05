@@ -19,10 +19,10 @@
                                     <div class="form-group">
                                     {{-- <label for="exampleFormControlSelect1">Angkatan</label> --}}
                                     <select class="form-control" name="filter">
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2022">2022</option>
+                                    <option value="2019" {{ $filter == '2019' ? 'selected' : '' }}>2019</option>
+                                    <option value="2020" {{ $filter == '2020' ? 'selected' : '' }}>2020</option>
+                                    <option value="2021" {{ $filter == '2021' ? 'selected' : '' }}>2021</option>
+                                    <option value="2022" {{ $filter == '2022' ? 'selected' : '' }}>2022</option>
                                     </select>
                                 </div>
                                  <div class="form-group ml-3">
@@ -32,8 +32,8 @@
                             </form>
                        </div>
                        <div class="col-md-6">
-                        <a href="{{ route('mahasiswa.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Mahasiswa</a>
-                        <a href="javascript:void(0)" class="btn btn-primary mr-3"  data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Import Mahasiswa</a>
+                        {{-- <a href="{{ route('mahasiswa.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Mahasiswa</a> --}}
+                        <a href="javascript:void(0)" class="btn btn-primary "  data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Import Mahasiswa</a>
                        </div>
                    </div>
                    
@@ -60,7 +60,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->nim }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->jurusan->name }}</td>
+                                    <td>{{ $item->jurusan }}</td>
                                     <td>{{ $item->phone }}</td>
                                     <td>{{ $item->angkatan }}</td>
                                     <td>

@@ -12,6 +12,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="float: right"><i class="fas fa-plus"></i> Matakuliah</a>
+                    <a href="javascript:void(0)" class="btn btn-primary mr-3"  data-toggle="modal" data-target="#importModal" style="float: right"><i class="fas fa-plus"></i> Import Matakuliah</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -19,8 +20,10 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>No</th>
+                                    <th>Kode Matakuliah</th>
                                     <th>Matakuliah</th>
                                     <th>Sks</th>
+                                    <th>Tahun</th>
                                     <th>Aksi</th>
                                    
                                 </tr>
@@ -30,8 +33,10 @@
                                 @forelse ($matkul as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->id_matkul }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->sks }}</td>
+                                    <td>{{ $item->tahun }}</td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="ubahData('{{route('matkul.update',$item->id)}}','{{$item->name}}','{{$item->sks}}','{{$item->id}}')" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                         <a href="{{ route('matkul.show',$item->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Pertemuan"><i class="far fa-eye"></i></a>
@@ -118,6 +123,35 @@
 
       </div>
      
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import Matakuliah</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('matakuliah.import') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="mahasiswa">Pilih Excel Matakuliah</label>
+                <input type="file" class="form-control-file" name="matakuliah" required id="matakuliah">
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+      
     </div>
   </div>
 </div>

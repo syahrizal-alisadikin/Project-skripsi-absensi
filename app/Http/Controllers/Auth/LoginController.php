@@ -76,7 +76,7 @@ class LoginController extends Controller
      public function PostMahasiswa(Request $request) 
     {
         $validator = Validator::make($request->all(), [
-            'email'    => 'required|email',
+            'nim'    => 'required',
             'password' => 'required',
         ]);
 
@@ -84,12 +84,12 @@ class LoginController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('nim', 'password');
 
         if(!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Email or Password is incorrect'
+                'message' => 'Nim or Password is incorrect'
             ], 401);
         }
        

@@ -24,7 +24,7 @@
                                     <th>Nim</th>
                                     <th>Nama</th>
                                     <th>Jurusan</th>
-                                    <th>Semester</th>
+                                    <th>Angkatan</th>
                                     <th>Aksi</th>
                                    
                                 </tr>
@@ -36,8 +36,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->mahasiswa->nim }}</td>
                                     <td>{{ $item->mahasiswa->name }}</td>
-                                    <td>{{ $item->mahasiswa->jurusan->name }}</td>
-                                    <td>{{ $item->mahasiswa->semester->name }}</td>
+                                    <td>{{ $item->mahasiswa->jurusan }}</td>
+                                    <td>{{ $item->mahasiswa->angkatan }}</td>
                                     
                                     
                                     

@@ -17,16 +17,21 @@ class MahasiswaImport implements ToModel,WithHeadingRow
     
     public function model(array $row)
     {
-        
-        return new Mahasiswa([
-            'name'     => $row['name'],
-            'email'    => $row['email'],
-            'phone'    => $row['phone'],
-            'nim'      => $row['nim'],
-            'fk_semester_id' => 1,
-            'fk_jurusan_id' => 1,
-            'password' => Hash::make('nim'),
+    
+        // $newArr = [];
+        if(isset($row['nama_mahasiswa']) && isset($row['nim']) && isset($row['jurusan']) && isset($row['phone']) && isset($row['angkatan']) )
+        {
+            return new Mahasiswa([
+            'name'          => $row["nama_mahasiswa"],
+            'nim'           => $row['nim'],
+            'jurusan'       => $row['jurusan'],
+            'phone'         =>$row['phone'],
+            'angkatan'      =>$row['angkatan'],
+            'password'      => Hash::make($row['nim']),
         ]);
+        }
        
     }
+
+    
 }

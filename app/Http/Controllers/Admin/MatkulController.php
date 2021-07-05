@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\MatakuliahImport;
 use App\Models\Matakuliah;
 use App\Models\Pertemuan;
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 class MatkulController extends Controller
 {
     /**
@@ -44,6 +46,36 @@ class MatkulController extends Controller
         ]);
 
         return redirect()->route('matkul.index')->with('success','data berhasil ditambahkan !!');
+    }
+
+    public function ImportMatakuliah(Request $request)
+    {
+        $this->validate($request, [
+            'matakuliah' =>  'required|mimes:csv,xls,xlsx'
+        ]);
+       
+        $file = $request->file('matakuliah');
+        
+        
+        // membuat nama file unik
+        $nama_file = $file->hashName();
+
+        //temporary file
+        $path = $file->storeAs('public/excel/',$nama_file);
+
+        $import = Excel::import(new MatakuliahImport(),storage_path('app/public/excel/'. $nama_file));
+        
+        //remove from server
+        Storage::delete($path);
+
+        if($import) {
+            //redirect
+            return redirect()->route('matkul.index')->with('success','data berhasil ditambahkan !!');
+
+        } else {
+            //redirect
+           return redirect()->route('matkul.index')->with('error','Data Gagal Diimport!');
+        }
     }
 
     /**

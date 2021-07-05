@@ -25,9 +25,9 @@
                 {{-- <a class="nav-link {{ (request()->is('admin/angkatan*')) ? 'active' : '' }}" href="{{ route('angkatan.index') }}">
                     Tahun Angkatan
                 </a> --}}
-                <a class="nav-link {{ (request()->is('admin/jurusan*')) ? 'active' : '' }}" href="{{ route('jurusan.index') }}">
+                {{-- <a class="nav-link {{ (request()->is('admin/jurusan*')) ? 'active' : '' }}" href="{{ route('jurusan.index') }}">
                     Jurusan
-                </a>
+                </a> --}}
                
                 <a class="nav-link {{ (request()->is('admin/absen*')) ? 'active' : '' }}" href="{{ route('absen.index') }}">
                     Laporan Absen

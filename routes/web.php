@@ -49,6 +49,8 @@ Route::prefix('admin')->middleware('admin')
             Route::resource('matkul', MatkulController::class);
             Route::resource('jadwal', JadwalController::class);
             Route::resource('absen', AbsenController::class);
+            Route::post('dosen-import',[DosenController::class,'ImportDosen'])->name('dosen.import');
+            Route::post('matakuliah-import',[MatkulController::class,'ImportMatakuliah'])->name('matakuliah.import');
             Route::post('kelas-import/{id}',[KelasController::class,'ImportMahasiswa'])->name('kelas.import');
             Route::post('mahaiswa-import',[MahasiswaController::class,'ImportMahasiswa'])->name('mahasiswa.import');
             Route::get('print-pdf/{id}',[AbsenController::class,'print_pdf'])->name('print_pdf');

@@ -21,10 +21,11 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+        $filter = request()->filter;
         $mahasiswa = Mahasiswa::with('jurusan','semester')->when(request()->filter, function($mahasiswa) {
             $mahasiswa = $mahasiswa->where('angkatan', request()->filter );
         })->orderBy('nim','asc')->get();
-        return view('pages.admin.mahasiswa.index',compact('mahasiswa'));
+        return view('pages.admin.mahasiswa.index',compact('mahasiswa','filter'));
     }
 
     /**
@@ -151,7 +152,7 @@ class MahasiswaController extends Controller
                     'name'    => 'required',
                     'email'   => [
                         'required',
-                        Rule::unique('mahasiswa')->ignore($mahasiswa->id, 'id'),
+                            Rule::unique('mahasiswa')->ignore($mahasiswa->id, 'id'),
 
 
                         ],
@@ -170,8 +171,8 @@ class MahasiswaController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'fk_semester_id' => $request->fk_semester_id,
-                'fk_jurusan_id' => $request->fk_jurusan_id,
+                'angkatan' => $request->angkatan,
+                'jurusan' => $request->jurusan,
                 'password' => Hash::make($request->password)
             ]);
             return redirect()->route('mahasiswa.index')->with('success','data berhasil diupdate !!');
@@ -199,8 +200,8 @@ class MahasiswaController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'fk_semester_id' => $request->fk_semester_id,
-                'fk_jurusan_id' => $request->fk_jurusan_id,
+                'angkatan' => $request->angkatan,
+                'jurusan' => $request->jurusan,
             ]);
             return redirect()->route('mahasiswa.index')->with('success','data berhasil diupdate !!');
 
