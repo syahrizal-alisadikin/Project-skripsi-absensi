@@ -30,7 +30,7 @@
                                 @forelse ($matkul as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->matkul->name }}</td>
+                                    <td>{{ $item->id_matkul }}</td>
                                     <td>{{ $item->jadwal->first()->mahasiswa->jurusan->name }}</td>
                                     {{-- <td>{{ $item->sks }}</td> --}}
                                     
