@@ -37,7 +37,7 @@
                                     <td>{{ $item->mahasiswa->nim }}</td>
                                     <td>{{ $item->mahasiswa->name }}</td>
                                     <td>{{ $item->mahasiswa->semester->name }}</td>
-                                    <td>{{ $item->mahasiswa->tahun }}</td>
+                                    <td>{{ $item->mahasiswa->angkatan }}</td>
                                    
                                    
                                 </tr>
