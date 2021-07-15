@@ -20,7 +20,7 @@
                                 <tr class="text-center">
                                     <th>No</th>
                                     <th>Matakuliah</th>
-                                    <th>Jurusan</th>
+                                    <th>Tahun</th>
                                     <th>Aksi</th>
                                    
                                 </tr>
@@ -31,7 +31,7 @@
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->id_matkul }}</td>
-                                    <td>{{ $item->jadwal->first()->mahasiswa->jurusan->name }}</td>
+                                    <td>{{ $item->tahun }}</td>
                                     {{-- <td>{{ $item->sks }}</td> --}}
                                     
                                     
