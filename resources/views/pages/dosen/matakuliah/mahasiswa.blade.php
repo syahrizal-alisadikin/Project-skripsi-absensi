@@ -24,7 +24,7 @@
                                     <th>Nim</th>
                                     <th>Name</th>
                                     <th>Semester</th>
-                                    <th>Jurusan</th>
+                                    <th>Tahun</th>
                                    
                                    
                                 </tr>
@@ -37,7 +37,7 @@
                                     <td>{{ $item->mahasiswa->nim }}</td>
                                     <td>{{ $item->mahasiswa->name }}</td>
                                     <td>{{ $item->mahasiswa->semester->name }}</td>
-                                    <td>{{ $item->mahasiswa->jurusan->name }}</td>
+                                    <td>{{ $item->mahasiswa->tahun }}</td>
                                    
                                    
                                 </tr>
