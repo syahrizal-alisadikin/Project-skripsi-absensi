@@ -19,14 +19,19 @@
                                     <div class="form-group">
                                     {{-- <label for="exampleFormControlSelect1">Angkatan</label> --}}
                                     <select class="form-control" name="filter">
-                                    <option value="2019" {{ $filter == '2019' ? 'selected' : '' }}>2019</option>
-                                    <option value="2020" {{ $filter == '2020' ? 'selected' : '' }}>2020</option>
-                                    <option value="2021" {{ $filter == '2021' ? 'selected' : '' }}>2021</option>
-                                    <option value="2022" {{ $filter == '2022' ? 'selected' : '' }}>2022</option>
+                                        @forelse ($angkatan as $ang)
+                                        <option value="{{ $ang }}" {{ $filter == $ang ? 'selected' : '' }}>{{ $ang }}</option>
+                                            
+                                        @empty
+                                        <option value="{{ date('Y') }}" selected>{{ date('Y') }}</option>
+                                            
+                                        @endforelse
+                                    
                                     </select>
                                 </div>
                                  <div class="form-group ml-3">
                                    <Button type="submit" class="btn btn-warning">Filter</Button>
+                                   <a href="{{ route('mahasiswa.index') }}" class="btn btn-info ml-3">Clear</a>
                                 </div>
                                 </div>
                             </form>

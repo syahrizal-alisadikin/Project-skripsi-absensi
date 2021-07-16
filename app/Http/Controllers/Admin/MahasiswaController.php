@@ -25,7 +25,8 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::with('jurusan','semester')->when(request()->filter, function($mahasiswa) {
             $mahasiswa = $mahasiswa->where('angkatan', request()->filter );
         })->orderBy('nim','asc')->get();
-        return view('pages.admin.mahasiswa.index',compact('mahasiswa','filter'));
+        $angkatan = Mahasiswa::distinct()->pluck('angkatan');
+        return view('pages.admin.mahasiswa.index',compact('mahasiswa','filter','angkatan'));
     }
 
     /**
