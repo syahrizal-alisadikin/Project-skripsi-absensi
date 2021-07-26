@@ -53,7 +53,7 @@
                                     <td>
                                         
                                        
-                                      @if (in_array($item->mahasiswa->id, $absen))
+                                      @if (in_array($item->mahasiswa->id ?? null, $absen))
                                         
                                         {{ $data->waktu }}
 
