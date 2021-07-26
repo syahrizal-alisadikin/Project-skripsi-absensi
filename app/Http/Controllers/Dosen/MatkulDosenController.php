@@ -32,7 +32,7 @@ class MatkulDosenController extends Controller
 
     public function MatkulMahasiswa($id)
     {
-        $jadwal = Jadwal::where('fk_kelas_id',$id)->with('mahasiswa.semester','mahasiswa.jurusan')->get();
+        $jadwal = Jadwal::where('fk_kelas_id',$id)->with('mahasiswa')->get();
         return view('pages.dosen.matakuliah.mahasiswa',compact('jadwal'));
     }
 

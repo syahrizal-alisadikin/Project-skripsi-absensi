@@ -23,7 +23,7 @@
                                     <th>No</th>
                                     <th>Nim</th>
                                     <th>Name</th>
-                                    <th>Semester</th>
+                                    {{-- <th>Semester</th> --}}
                                     <th>Tahun</th>
                                    
                                    
@@ -36,7 +36,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->mahasiswa->nim }}</td>
                                     <td>{{ $item->mahasiswa->name }}</td>
-                                    <td>{{ $item->mahasiswa->semester->name }}</td>
+                                    {{-- <td>{{ $item->mahasiswa->fk_semester_id }}</td> --}}
                                     <td>{{ $item->mahasiswa->angkatan }}</td>
                                    
                                    
