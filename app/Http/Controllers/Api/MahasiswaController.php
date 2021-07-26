@@ -74,7 +74,9 @@ class MahasiswaController extends Controller
                     "fk_pertemuan_id" => $id,
                     "fk_mahasiswa_id" => $siswa->id,
                     "status" => "hadir",
-                    "waktu" => date('Y-m-d H:i:s')
+                    "waktu" => date('Y-m-d H:i:s'),
+                    "longtitude" => request()->longtitude,
+                    "latitude" => request()->latitude,
                 ]);
                 return response()->json([
                 'success' => true,
@@ -97,7 +99,9 @@ class MahasiswaController extends Controller
                     "fk_pertemuan_id" => $id,
                     "fk_mahasiswa_id" => $siswa->id,
                     "status" => "telat",
-                    "waktu" => date('Y-m-d H:i:s')
+                    "waktu" => date('Y-m-d H:i:s'),
+                    "longtitude" => request()->longtitude,
+                    "latitude" => request()->latitude,
                 ]);
                 return response()->json([
                 'success' => true,

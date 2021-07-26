@@ -23,7 +23,7 @@ class Absen extends Model
     
     protected $table = "absen";
 
-    protected $fillable = ["fk_pertemuan_id","fk_mahasiswa_id","status","waktu"];
+    protected $fillable = ["fk_pertemuan_id","fk_mahasiswa_id","status","waktu",'longtitude','latitude'];
 
     public function pertemuan()
     {
