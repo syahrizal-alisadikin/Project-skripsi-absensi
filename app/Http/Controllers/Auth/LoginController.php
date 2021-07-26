@@ -145,7 +145,6 @@ class LoginController extends Controller
     {   
         Auth::guard('api')->logout();
         return response()->json(['message' => 'Successfully logged out']);
-           
     }
      
 }

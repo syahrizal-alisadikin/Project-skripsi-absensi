@@ -24,10 +24,16 @@ class KelasImport implements ToModel,WithHeadingRow
         $id = $this->id;
         $mahasiswa = Mahasiswa::where('nim',$row['nim'])->get();
         foreach($mahasiswa as $siswa){
-            Jadwal::create([
-                'fk_kelas_id' => $id,
-                'fk_mahasiswa_id' => $siswa->id
-            ]);
+            $jadwal = Jadwal::where('fk_kelas_id',$id)->where('fk_mahasiswa_id',$siswa->id);
+            if($jadwal->count()){
+                
+               
+            }else{
+                 Jadwal::create([
+                    'fk_kelas_id' => $id,
+                    'fk_mahasiswa_id' => $siswa->id
+                ]);
+            }
         }
     }
 }

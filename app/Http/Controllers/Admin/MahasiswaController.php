@@ -90,6 +90,8 @@ class MahasiswaController extends Controller
         // membuat nama file unik
         $nama_file = $file->hashName();
 
+        try {
+ 
         //temporary file
         $path = $file->storeAs('public/excel/',$nama_file);
 
@@ -97,8 +99,7 @@ class MahasiswaController extends Controller
         
         //remove from server
         Storage::delete($path);
-
-        if($import) {
+         if($import) {
             //redirect
             return redirect()->route('mahasiswa.index')->with('success','data berhasil ditambahkan !!');
 
@@ -106,6 +107,13 @@ class MahasiswaController extends Controller
             //redirect
            return redirect()->route('mahasiswa.index')->with('error','Data Gagal Diimport!');
         }
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            
+           return redirect()->route('mahasiswa.index')->with('error','Data Gagal Diimport!');
+            
+        }
+       
     }
 
     /**

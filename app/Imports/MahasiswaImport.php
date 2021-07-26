@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -21,17 +22,25 @@ class MahasiswaImport implements ToModel,WithHeadingRow
         // $newArr = [];
         if(isset($row['nama_mahasiswa']) && isset($row['nim']) && isset($row['jurusan']) && isset($row['phone']) && isset($row['angkatan']) )
         {
-            return new Mahasiswa([
-            'name'          => $row["nama_mahasiswa"],
-            'nim'           => $row['nim'],
-            'jurusan'       => $row['jurusan'],
-            'phone'         =>$row['phone'],
-            'angkatan'      =>$row['angkatan'],
-            'password'      => Hash::make($row['nim']),
-        ]);
+            $mahasiswa = Mahasiswa::where('nim',$row['nim']);
+            if($mahasiswa->count()){
+
+            }else{
+
+                return new Mahasiswa([
+                'name'          => $row["nama_mahasiswa"],
+                'nim'           => $row['nim'],
+                'jurusan'       => $row['jurusan'],
+                'phone'         =>$row['phone'],
+                'angkatan'      =>$row['angkatan'],
+                'password'      => Hash::make($row['nim']),
+            ]);
+            }
         }
        
     }
+
+   
 
     
 }

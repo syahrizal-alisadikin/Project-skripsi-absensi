@@ -18,14 +18,22 @@ class DosenImport implements ToModel,WithHeadingRow
     {
           if(isset($row['nidn']) && isset($row['name']) && isset($row['email']) && isset($row['telp']) && isset($row['alamat']) )
         {
-            return new Dosen([
-            'nidn'          => $row["nidn"],
-            'name'          => $row['name'],
-            'email'         => $row['email'],
-            'phone'         =>$row['telp'],
-            'alamat'        =>$row['alamat'],
-            'password'      => Hash::make($row['nidn']),
-            ]);
+
+            $dosen = Dosen::where('nidn',$row['nidn']);
+
+            if($dosen->count()){
+
+            }else{
+
+                return new Dosen([
+                'nidn'          => $row["nidn"],
+                'name'          => $row['name'],
+                'email'         => $row['email'],
+                'phone'         =>$row['telp'],
+                'alamat'        =>$row['alamat'],
+                'password'      => Hash::make($row['nidn']),
+                ]);
+            }
         }
     }
 }
