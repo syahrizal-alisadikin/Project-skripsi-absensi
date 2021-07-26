@@ -31,8 +31,8 @@
                                 @forelse ($mahasiswa as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->mahasiswa->nim}}</td>
-                                    <td>{{ $item->mahasiswa->name}}</td>
+                                    <td>{{ $item->mahasiswa->nim ?? null}}</td>
+                                    <td>{{ $item->mahasiswa->name ?? null}}</td>
                                     <td>
                                        @if (in_array($item->mahasiswa->id, $absen))
                                         @php
