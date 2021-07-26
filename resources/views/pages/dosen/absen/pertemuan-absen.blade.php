@@ -34,9 +34,9 @@
                                     <td>{{ $item->mahasiswa->nim ?? null}}</td>
                                     <td>{{ $item->mahasiswa->name ?? null}}</td>
                                     <td>
-                                       @if (in_array($item->mahasiswa->id, $absen))
+                                       @if (in_array($item->mahasiswa->id ?? null, $absen))
                                         @php
-                                            $data = App\Models\Absen::where('fk_mahasiswa_id',$item->mahasiswa->id)->where('fk_pertemuan_id',$id)->first();
+                                            $data = App\Models\Absen::where('fk_mahasiswa_id',$item->mahasiswa->id ?? null)->where('fk_pertemuan_id',$id)->first();
                                         @endphp
                                         @if ($data->status == "hadir")
                                         <span class="badge badge-success">Hadir</span>
@@ -47,7 +47,7 @@
 
                                       @else
                                       <span class="badge badge-warning">Belum, Absen</span>
-                                      <a href="{{ route('mahasiswaAbsen.dosen',$id) }}?fk_mahasiswa_id={{ $item->mahasiswa->id }}" class="btn btn-sm btn-success">Absen</a>
+                                      <a href="{{ route('mahasiswaAbsen.dosen',$id) }}?fk_mahasiswa_id={{ $item->mahasiswa->id ?? null }}" class="btn btn-sm btn-success">Absen</a>
                                       @endif
                                     </td>
                                     <td>
