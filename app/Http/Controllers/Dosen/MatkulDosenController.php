@@ -24,15 +24,31 @@ class MatkulDosenController extends Controller
 
     public function MatkulPertemuan(Request $request,$id)
     {
-       $pertemuan = Pertemuan::where('fk_matkul_id',$id)->with('matakuliah')->get();
+       $pertemuan = Pertemuan::where('fk_matkul_id',$id)->with('matakuliah')->orderBy('tanggal','asc')->get();
         // dd($pertemuan);
         return view('pages.dosen.matakuliah.pertemuan',compact('pertemuan'));
+
+    }
+
+    public function update(Request $request,$id)
+    {
+        $pertemuan = Pertemuan::findOrFail($id);
+        if($pertemuan){
+              $pertemuan->update([
+                    'name' => $request->name,
+                    'tanggal' => $request->tanggal,
+                ]);
+            return redirect()->route('matakuliah.pertemuan',$pertemuan->fk_matkul_id)->with('success','data berhasil diupdate!!');
+        }
+            return redirect()->route('matakuliah.pertemuan',$pertemuan->fk_matkul_id)->with('info','data gagal diupdate!!');
+
 
     }
 
     public function MatkulMahasiswa($id)
     {
         $jadwal = Jadwal::where('fk_kelas_id',$id)->with('mahasiswa')->get();
+        // dd($jadwal);
         return view('pages.dosen.matakuliah.mahasiswa',compact('jadwal'));
     }
 

@@ -40,6 +40,7 @@ class MatkulController extends Controller
      */
     public function store(Request $request)
     {
+
         Matakuliah::create([
             'name' => $request->name,
             'sks' => $request->sks,
@@ -89,7 +90,7 @@ class MatkulController extends Controller
     public function show($id)
     {
        $matkul = Matakuliah::find($id);
-       $pertemuan = Pertemuan::where('fk_matkul_id',$id)->with('matakuliah')->get();
+       $pertemuan = Pertemuan::where('fk_matkul_id',$id)->with('matakuliah')->orderBy('tanggal','asc')->get();
 
        return view('pages.admin.matakuliah.pertemuan',compact('matkul','pertemuan'));
     }

@@ -34,10 +34,10 @@
                                 @forelse ($jadwal as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->mahasiswa->nim }}</td>
-                                    <td>{{ $item->mahasiswa->name }}</td>
+                                    <td>{{ $item->mahasiswa->nim ?? null }}</td>
+                                    <td>{{ $item->mahasiswa->name ?? null }}</td>
                                     {{-- <td>{{ $item->mahasiswa->fk_semester_id }}</td> --}}
-                                    <td>{{ $item->mahasiswa->angkatan }}</td>
+                                    <td>{{ $item->mahasiswa->angkatan ?? null }}</td>
                                    
                                    
                                 </tr>

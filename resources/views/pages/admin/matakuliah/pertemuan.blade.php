@@ -13,7 +13,12 @@
             <div class="card mb-4">
                 <div class="card-header d-flex">
                     <h5>{{ $matkul->name }}</h5>
-                    <a href="#" class="btn btn-success ml-auto" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> Pertemuan</a>
+                    @if (count($pertemuan) >= 15)
+                    <a href="#" class="btn btn-danger ml-auto" disabled  ><i class="fas fa-plus"></i> Pertemuan</a>
+                     @else   
+                    <a href="#" class="btn btn-success ml-auto"   data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-plus"></i> Pertemuan</a>
+
+                    @endif
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -44,7 +49,7 @@
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">Belum ada Pertemuan</td>
+                                        <td colspan="5" class="text-center">Belum ada Pertemuan</td>
                                     </tr>
                                 @endforelse
                                 
@@ -71,7 +76,12 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Nama Pertemuan</label>
                 <input type="hidden" name="fk_matkul_id" value="{{ $matkul->id }}" class="form-control"  >
-                <input type="text" name="name" class="form-control" required placeholder="Masukan Nama Matakuliah" >
+                @if(count($pertemuan) == 0)
+                <input type="text" name="name" class="form-control" disabled required placeholder="Pertemuan 1-16" >
+                @else
+                <input type="text" name="name" class="form-control"  required placeholder="Masukan Pertemuan" >
+
+                @endif
             </div>
             <div class="form-group">
                 <label for="date">Tanggal</label>

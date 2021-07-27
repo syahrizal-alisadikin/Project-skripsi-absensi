@@ -72,6 +72,7 @@ Route::prefix('dosen')->middleware('dosen')
             Route::get('/matakuliah/{id}' ,[MatkulDosenController::class,'MatkulPertemuan'])->name('matakuliah.pertemuan');
             Route::get('/matakuliah-mahasiswa/{id}' ,[MatkulDosenController::class,'MatkulMahasiswa'])->name('matakuliah.mahasiswa');
             Route::get('/generateAbsen/{id}' ,[MatkulDosenController::class,'generateAbsen'])->name('generateAbsen');
+            Route::PUT('/update/{id}' ,[MatkulDosenController::class,'update'])->name('update');
             Route::get('/AddAbsen/{id}' ,[MatkulDosenController::class,'AddTimeAbsen'])->name('AddTimeAbsen');
             Route::get('/generateView/{id}' ,[MatkulDosenController::class,'generateView'])->name('generateView');
             Route::get('print-pdf/{id}',[AbsensiController::class,'print_pdf'])->name('print_pdf_dosen');

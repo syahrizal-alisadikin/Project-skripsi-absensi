@@ -36,14 +36,36 @@ class PertemuanController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $pertemuan = Pertemuan::create([
-            'name' => $request->name,
-            'tanggal' => $request->tanggal,
+        $date   = $request->tanggal;
+        $start  = 0 ;
+        $end    = 15 ;
+        $pertemuan = Pertemuan::where('fk_matkul_id',$request->fk_matkul_id)->count();
+        if($pertemuan == 0){
+             for($start; $start <= $end ; $start++){
+            $tanggal_start = $start * 7 ;
+            $i = 1 + $start;
+
+            Pertemuan::create([
+            'name' => "Pertemuan ". $i,
+            'tanggal' => date('Y-m-d', strtotime($date. ' + '. $tanggal_start.' days')),
             'fk_matkul_id' => $request->fk_matkul_id,
 
-        ]);
-            return redirect()->route('matkul.show',$request->fk_matkul_id)->with('success','data berhasil ditambahkan!!');
+            ]);
+           
+            // $data[] = date('Y-m-d', strtotime($date. ' + '. $tanggal.' days'));
+        }
+        }else{
+            Pertemuan::create([
+            'name' => $request->name,
+            'tanggal' => $date,
+            'fk_matkul_id' => $request->fk_matkul_id,
+
+            ]);
+
+        }
+      
+
+        return redirect()->route('matkul.show',$request->fk_matkul_id)->with('success','data berhasil ditambahkan!!');
     }
 
     /**
