@@ -21,6 +21,7 @@
                                     <th>No</th>
                                     <th>Nim</th>
                                     <th>Mahasiswa</th>
+                                    <th>Lokasi</th>
                                     <th>Status</th>
                                     <th>Waktu</th>
                                    
@@ -33,6 +34,37 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->mahasiswa->nim ?? null}}</td>
                                     <td>{{ $item->mahasiswa->name ?? null}}</td>
+                                     <td>
+                                       @if (in_array($item->mahasiswa->id ?? null, $absen))
+                                        @php
+                                            $data = App\Models\Absen::where('fk_mahasiswa_id',$item->mahasiswa->id ?? null)->where('fk_pertemuan_id',$id)->first();
+                                        @endphp
+                                        <iframe 
+                                          width="300" 
+                                          height="170" 
+                                          frameborder="0" 
+                                          scrolling="no" 
+                                          marginheight="0" 
+                                          marginwidth="0" 
+                                          src="https://maps.google.com/maps?q='+{{ $data->latitude }}+','+{{ $data->longtitude }}+'&hl=es&z=14&amp;output=embed"
+                                        >
+                                        </iframe>
+                                        <br />
+                                        <small>
+                                          <a 
+                                            href="https://maps.google.com/maps?q='+{{ $data->latitude }}+','+{{ $data->longtitude }}+'&hl=es;z=14&amp;output=embed" 
+                                            style="color:#0000FF;text-align:left" 
+                                            target="_blank"
+                                          >
+                                            See map bigger
+                                          </a>
+                                        </small>
+
+                                      @else
+                                      <span class="badge badge-warning">Belum, Absen</span>
+                                      <a href="{{ route('mahasiswaAbsen.dosen',$id) }}?fk_mahasiswa_id={{ $item->mahasiswa->id ?? null }}" class="btn btn-sm btn-success">Absen</a>
+                                      @endif
+                                    </td>
                                     <td>
                                        @if (in_array($item->mahasiswa->id ?? null, $absen))
                                         @php
