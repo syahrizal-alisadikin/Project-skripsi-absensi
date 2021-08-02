@@ -31,7 +31,7 @@ class AbsenController extends Controller
     public function show($id)
     {
         
-        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->orderBy('name','asc')->get();
+        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->orderBy('tanggal','asc')->get();
         // dd($pertemuan);
         return view('pages.admin.absensi.pertemuan',compact('pertemuan'));
 
