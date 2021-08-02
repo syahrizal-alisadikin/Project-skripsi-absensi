@@ -74,7 +74,13 @@
                                     <td>{{ $absen->mahasiswa->name }}</td>
                                     <td>{{ $absen->pertemuan->name }}</td>
                                     <td>{{ $absen->pertemuan->matakuliah->name }}</td>
-                                    <td>{{ $absen->status }}</td>
+                                    <td>
+                                     @if ($absen->status == "hadir")
+                                        <span class="badge badge-success">Hadir</span>
+                                        @else
+                                        <span class="badge badge-warning">Terlambat</span>
+
+                                        @endif</td>
                                 </tr>
                                 @empty
                                     <tr >
