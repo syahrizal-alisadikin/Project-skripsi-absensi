@@ -62,7 +62,7 @@ class MahasiswaController extends Controller
             if($date <= $time){
                 $siswa = auth()->guard('api')->user();
                 $getAbsen = Absen::where("fk_pertemuan_id",$id)->where('fk_mahasiswa_id',$siswa->id)->count();
-                if($getAbsen > 1){
+                if($getAbsen > 0){
                      return response()->json([
                 'success' => false,
                 'message' => "Anda sudah absen !!",
