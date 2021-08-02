@@ -39,7 +39,11 @@
                                         @php
                                             $data = App\Models\Absen::where('fk_mahasiswa_id',$item->mahasiswa->id ?? null)->where('fk_pertemuan_id',$id)->first();
                                         @endphp
-                                      <iframe src = "https://maps.google.com/maps?q={{$data->latitude}},{{$data->longtitude}}&hl=es;z=14&amp;output=embed"></iframe>
+                                        @if ($data->latitude && $data->longtitude != null)
+                                          <iframe src = "https://maps.google.com/maps?q={{$data->latitude}},{{$data->longtitude}}&hl=es;z=14&amp;output=embed"></iframe>
+                                        @else 
+                                         <span class="badge badge-danger">Tidak ada lokasi</span>
+                                        @endif
 
                                       @else
                                       <span class="badge badge-warning">Belum, Absen</span>
