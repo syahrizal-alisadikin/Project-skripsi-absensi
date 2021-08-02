@@ -39,26 +39,7 @@
                                         @php
                                             $data = App\Models\Absen::where('fk_mahasiswa_id',$item->mahasiswa->id ?? null)->where('fk_pertemuan_id',$id)->first();
                                         @endphp
-                                        <iframe 
-                                          width="300" 
-                                          height="170" 
-                                          frameborder="0" 
-                                          scrolling="no" 
-                                          marginheight="0" 
-                                          marginwidth="0" 
-                                          src="https://maps.google.com/maps?q='+{{ $data->latitude }}+','+{{ $data->longtitude }}+'&hl=es&z=14&amp;output=embed"
-                                        >
-                                        </iframe>
-                                        <br />
-                                        <small>
-                                          <a 
-                                            href="https://maps.google.com/maps?q='+{{ $data->latitude }}+','+{{ $data->longtitude }}+'&hl=es;z=14&amp;output=embed" 
-                                            style="color:#0000FF;text-align:left" 
-                                            target="_blank"
-                                          >
-                                            See map bigger
-                                          </a>
-                                        </small>
+                                      <iframe src = "https://maps.google.com/maps?q={{$data->latitude}},{{$data->longtitude}}&hl=es;z=14&amp;output=embed"></iframe>
 
                                       @else
                                       <span class="badge badge-warning">Belum, Absen</span>
