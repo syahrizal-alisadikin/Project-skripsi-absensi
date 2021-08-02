@@ -54,7 +54,7 @@ class AbsensiController extends Controller
      */
     public function show($id)
     {
-        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->orderBy('name','asc')->get();
+        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->orderBy('tanggal','asc')->get();
         $matkul = Matakuliah::findOrFail($id);
         return view('pages.dosen.absen.pertemuan',compact('pertemuan','matkul'));
     }
