@@ -47,9 +47,9 @@ class AbsenController extends Controller
         
         $absen = Absen::where('fk_pertemuan_id',$id)
                 ->whereHas('mahasiswa',function($query){
-                    $query->orderBy('nim');
+                    $query->orderBy('nim','asc');
                 })
-                ->with('mahasiswa')->pluck('fk_mahasiswa_id')->toArray();
+                ->with('mahasiswa')->latest()->pluck('fk_mahasiswa_id')->toArray();
         // dd($absen);
         return view('pages.admin.absensi.pertemuan-absen',compact('absen','id','mahasiswa'));
     }
