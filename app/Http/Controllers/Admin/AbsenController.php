@@ -42,7 +42,7 @@ class AbsenController extends Controller
         $pertemuan = Pertemuan::find($id);
         $kelas = Kelas::where('fk_matkul_id',$pertemuan->fk_matkul_id)->first();
         $mahasiswa = Jadwal::where('fk_kelas_id',$kelas->id)->with('mahasiswa')->whereHas('mahasiswa',function($query){
-                    $query->orderBy('nim');
+                    $query->orderBy('nim','asc');
                 })->get();
         
         $absen = Absen::where('fk_pertemuan_id',$id)
