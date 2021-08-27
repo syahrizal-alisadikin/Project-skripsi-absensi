@@ -47,6 +47,8 @@
                                 
                             </tbody>
                         </table>
+                        <a href="{{ route('absensi.pertemuan-showAll',$matkul->id) }}" data-toggle="tooltip" data-placement="top" title="Lihat Semua Absensi Pertemuan "  class="btn btn-warning">Absensi Semua Pertemuan</a>
+
                     </div>
                 </div>
             </div>

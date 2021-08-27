@@ -126,6 +126,7 @@ class AbsensiController extends Controller
     {
         
         $pertemuan = Pertemuan::find($id);
+        
         $kelas = Kelas::where('fk_matkul_id',$pertemuan->fk_matkul_id)->first();
         $mahasiswa = Jadwal::where('fk_kelas_id',$kelas->id)->with('mahasiswa')->get();
         // dd($mahasiswa);
@@ -136,6 +137,23 @@ class AbsensiController extends Controller
                 ->with('mahasiswa')->pluck('fk_mahasiswa_id')->toArray();
                 // dd($absen);
         return view('pages.dosen.absen.pertemuan-absen',compact('absen','id','mahasiswa'));
+    }
+
+    public function pertemuanShowAll($id)
+    {
+        
+        $pertemuan = Pertemuan::where('fk_matkul_id',$id)->orderBy('tanggal','asc')->get();
+       
+        $pertemuanPluck = Pertemuan::where('fk_matkul_id',$id)->pluck('id');
+        $kelas = Kelas::where('fk_matkul_id',$id)->first();
+        $mahasiswa = Jadwal::where('fk_kelas_id',$kelas->id)->with('mahasiswa')->get();
+        $absen = Absen::whereIn('fk_pertemuan_id',$pertemuanPluck)
+                ->whereHas('mahasiswa',function($query){
+                    $query->orderBy('nim',"asc");
+                })
+                ->with('mahasiswa')->pluck('fk_mahasiswa_id')->toArray();
+                // dd($absen);
+        return view('pages.dosen.absen.pertemuanAll-absen',compact('absen','id','mahasiswa','pertemuan','pertemuanPluck'));
     }
 
     /**

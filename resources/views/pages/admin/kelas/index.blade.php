@@ -31,9 +31,9 @@
                                 @forelse ($kelas as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $item->name ?? 'data sudah dihapus' }}</td>
-                                    <td>{{ $item->matkul->name ?? 'data sudah dihapus' }}</td>
-                                    <td>{{ $item->dosen->name ?? 'data sudah dihapus' }}</td>
+                                    <td>{{ $item->name  }}</td>
+                                    <td>{{ $item->matkul->name }}</td>
+                                    <td>{{ $item->dosen->name  }}</td>
                                     
                                     
                                     <td>
