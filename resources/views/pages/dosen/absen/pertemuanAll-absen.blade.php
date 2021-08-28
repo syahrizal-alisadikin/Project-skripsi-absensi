@@ -12,9 +12,11 @@
             <div class="card mb-4">
                 <div class="card-header">
                     {{-- <a href="{{ route('dosen.create') }}" class="btn btn-success" style="float: right"><i class="fas fa-plus"></i> Dosen</a> --}}
+                    <a href="{{ route('export.pertemuan-showAll',$kelas->fk_matkul_id) }}" data-toggle="tooltip" data-placement="top" title="Export Ke Excel"  class="btn btn-primary">Export Excel</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr class="text-center">
@@ -41,7 +43,7 @@
                                         @endphp
                                        <td>
                 
-                                         {{ $data->status ?? null}}
+                                         {{ $data->status ?? ''}}
                                        </td>
                                     @endforeach
                                     <td>{{ $count }}</td>

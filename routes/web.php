@@ -68,7 +68,8 @@ Route::prefix('dosen')->middleware('dosen')
             Route::resource('absensi', AbsensiController::class);
             Route::GET('/mahasiswa-absen/dosen/{id}',[AbsensiController::class,'mahasiswaAbsen'])->name('mahasiswaAbsen.dosen');
             Route::GET('/absensi/pertemuan/{id}',[AbsensiController::class,'pertemuanShow'])->name('absensi.pertemuan-show');
-            Route::GET('/absensi/pertemuanAll/{id}',[AbsensiController::class,'pertemuanShowAll'])->name('absensi.pertemuan-showAll');
+            Route::GET('absensi/pertemuanAll/{id}',[AbsensiController::class,'pertemuanShowAll'])->name('absensi.pertemuan-showAll');
+            Route::GET('export/absensi/pertemuanAll/{id}',[AbsensiController::class,'ExportPertemuan'])->name('export.pertemuan-showAll');
             Route::get('/matakuliah' ,[MatkulDosenController::class,'index'])->name('matkulDosen.index');
             Route::get('/matakuliah/{id}' ,[MatkulDosenController::class,'MatkulPertemuan'])->name('matakuliah.pertemuan');
             Route::get('/matakuliah-mahasiswa/{id}' ,[MatkulDosenController::class,'MatkulMahasiswa'])->name('matakuliah.mahasiswa');

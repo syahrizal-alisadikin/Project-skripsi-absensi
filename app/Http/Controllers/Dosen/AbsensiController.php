@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dosen;
 
+use App\Exports\PertemuanExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
@@ -10,6 +11,7 @@ use App\Models\Absen;
 use App\Models\Jadwal;
 use App\Models\Matakuliah;
 use PDF;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 class AbsensiController extends Controller
 {
@@ -153,7 +155,16 @@ class AbsensiController extends Controller
                 })
                 ->with('mahasiswa')->pluck('fk_mahasiswa_id')->toArray();
                 // dd($absen);
-        return view('pages.dosen.absen.pertemuanAll-absen',compact('absen','id','mahasiswa','pertemuan','pertemuanPluck'));
+        return view('pages.dosen.absen.pertemuanAll-absen',compact('absen','id','mahasiswa','kelas','pertemuan','pertemuanPluck'));
+    }
+
+    public function ExportPertemuan($id)
+    {
+        $kelas = Kelas::where('fk_matkul_id',$id)->with('matkul')->first();
+         
+        $nama_file = 'Rekap Semua Pertemuan ' . $kelas->matkul->name . '.xlsx';
+        return Excel::download(new PertemuanExport($id), $nama_file);
+        
     }
 
     /**
