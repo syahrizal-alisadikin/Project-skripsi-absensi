@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class PertemuanExport implements FromView,WithHeadings
+class PertemuanExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
