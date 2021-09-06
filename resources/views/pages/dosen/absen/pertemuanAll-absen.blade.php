@@ -23,7 +23,8 @@
                                     <th>Nim</th>
                                     <th>Nama</th>
                                     @foreach ($pertemuan as $item)
-                                        <th>{{ $item->name }}</th>
+
+                                        <th>P{{ $loop->iteration }}</th>
                                     @endforeach
                                     <th>Total Hadir</th>
                                    
